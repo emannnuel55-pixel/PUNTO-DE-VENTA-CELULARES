@@ -1,0 +1,289 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20260710101946
+Username: JUAREZ\jesriver
+RunAs User: JUAREZ\jesriver
+Configuration Name: 
+Machine: JESRIVER-WE03 (Microsoft Windows NT 10.0.26200.0)
+Host Application: PowerShell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File C:\Users\jesriver\Documents\CELULARES\PUNTO-DE-VENTA-CELULARES-CORREGIDO\punto-de-venta-celulares\SUBIR_A_GITHUB_AUTOMATICO.ps1
+Process ID: 14464
+PSVersion: 5.1.26100.8655
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.8655
+BuildVersion: 10.0.26100.8655
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+============================================================
+ PUNTO DE VENTA CELULARES - SUBIDA AUTOMATICA A GITHUB
+============================================================
+Proyecto: C:\Users\jesriver\Documents\CELULARES\PUNTO-DE-VENTA-CELULARES-CORREGIDO\punto-de-venta-celulares
+Destino:  https://github.com/emannnuel55-pixel/PUNTO-DE-VENTA-CELULARES
+Log:      C:\Users\jesriver\Documents\CELULARES\PUNTO-DE-VENTA-CELULARES-CORREGIDO\punto-de-venta-celulares\SUBIDA_GITHUB_LOG.txt
+
+[OK] Git detectado: C:\Program Files\Git\cmd\git.exe
+[INFO] GitHub CLI no esta instalado. Se descargara una copia PORTATIL oficial; no se usara winget.
+[INFO] Descargando GitHub CLI portable con curl...
+[AVISO] curl no pudo descargar el archivo. Intentando con PowerShell...
+PS>TerminatingError(Invoke-WebRequest): "
+
+
+
+ERROR: Cache Access Denied
+
+
+
+ERROR
+Cache Access Denied.
+
+
+
+
+The following error was encountered while trying to retrieve the URL: https://github.com/*
+
+
+Cache Access Denied.
+
+
+Sorry, you are not currently allowed to request https://github.com/* from this cache until you have authenticated yourself.
+
+Please contact the cache administrator if you have difficulties authenticating yourself.
+
+
+
+
+ 
+
+Generated Fri, 10 Jul 2026 16:20:52 GMT by FJZServer193.57 (squid)
+
+
+
+"
+[AVISO] La descarga directa tampoco fue posible: The remote server returned an error: (407) Proxy Authentication Required.
+[INFO] Preparando repositorio Git local...
+Initialized empty Git repository in C:/Users/jesriver/Documents/CELULARES/PUNTO-DE-VENTA-CELULARES-CORREGIDO/punto-de-ve
+nta-celulares/.git/
+
+
+
+warning: in the working copy of '.dockerignore', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.env.example', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.github/dependabot.yml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.github/workflows/ci.yml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.github/workflows/codeql.yml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.github/workflows/secret-scan.yml', LF will be replaced by CRLF the next time Git touch
+es it
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'AUDIT_EVIDENCE.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Dockerfile', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'EJECUTAR_PRIMERO.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'IMPLEMENTATION_SUMMARY.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'INICIAR_CON_DOCKER.bat', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'LICENSE', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PREPARAR_LOCAL_WINDOWS.bat', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PREPARAR_LOCAL_WINDOWS.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'README.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'SECURITY.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'SUBIR_A_GITHUB_AUTOMATICO.bat', LF will be replaced by CRLF the next time Git touches i
+t
+warning: in the working copy of 'SUBIR_A_GITHUB_AUTOMATICO.ps1', LF will be replaced by CRLF the next time Git touches i
+t
+warning: in the working copy of 'SUBIR_A_GITHUB_AUTOMATICO.sh', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/actions/clients.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/actions/products.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/actions/repair-details.ts', LF will be replaced by CRLF the next time Git touches i
+t
+warning: in the working copy of 'app/actions/repairs.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/actions/settings.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/api/auth/login/route.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/api/auth/logout/route.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/api/customer/access/route.ts', LF will be replaced by CRLF the next time Git touche
+s it
+warning: in the working copy of 'app/api/customer/events/route.ts', LF will be replaced by CRLF the next time Git touche
+s it
+warning: in the working copy of 'app/api/customer/logout/route.ts', LF will be replaced by CRLF the next time Git touche
+s it
+warning: in the working copy of 'app/api/health/route.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/api/sales/route.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/cliente/ClientRealtime.tsx', LF will be replaced by CRLF the next time Git touches
+it
+warning: in the working copy of 'app/cliente/page.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/error.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/globals.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/layout.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/login/page.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/manifest.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/not-found.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/page.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/panel/auditoria/page.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/panel/clientes/page.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/panel/configuracion/page.tsx', LF will be replaced by CRLF the next time Git touche
+s it
+warning: in the working copy of 'app/panel/layout.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/panel/page.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/panel/pos/PosClient.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/panel/pos/page.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/panel/productos/page.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/panel/reparaciones/[id]/page.tsx', LF will be replaced by CRLF the next time Git to
+uches it
+warning: in the working copy of 'app/panel/reparaciones/nueva/page.tsx', LF will be replaced by CRLF the next time Git t
+ouches it
+warning: in the working copy of 'app/panel/reparaciones/page.tsx', LF will be replaced by CRLF the next time Git touches
+ it
+warning: in the working copy of 'app/seguimiento/page.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'components/AppLogo.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'components/IssuedCode.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'components/Sidebar.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'components/StatCard.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docker-compose.yml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/ACCESS_CONTROL_MATRIX.md', LF will be replaced by CRLF the next time Git touches i
+t
+warning: in the working copy of 'docs/ARCHITECTURE.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/DATABASE.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/RAILWAY.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/TESTING.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'eslint.config.mjs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'lib/access-code.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'lib/audit.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'lib/auth.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'lib/customer-auth.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'lib/db.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'lib/env.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'lib/folio.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'lib/money.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'lib/permissions.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'lib/repair-state.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'lib/security.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'lib/validation.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'next-env.d.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'next.config.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'prisma.config.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'prisma/migrations/20260710000000_init/migration.sql', LF will be replaced by CRLF the n
+ext time Git touches it
+warning: in the working copy of 'prisma/migrations/migration_lock.toml', LF will be replaced by CRLF the next time Git t
+ouches it
+warning: in the working copy of 'prisma/schema.prisma', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'prisma/seed.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'railway.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/start-railway.mjs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/verify-env.mjs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tests/access-code.test.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tests/money.test.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tests/repair-state.test.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'vitest.config.ts', LF will be replaced by CRLF the next time Git touches it
+[main (root-commit) ee3f405] feat: plataforma Punto de Venta Celulares funcional
+ 96 files changed, 12295 insertions(+)
+ create mode 100644 .dockerignore
+ create mode 100644 .env.example
+ create mode 100644 .github/dependabot.yml
+ create mode 100644 .github/workflows/ci.yml
+ create mode 100644 .github/workflows/codeql.yml
+ create mode 100644 .github/workflows/secret-scan.yml
+ create mode 100644 .gitignore
+ create mode 100644 AUDIT_EVIDENCE.md
+ create mode 100644 Dockerfile
+ create mode 100644 EJECUTAR_PRIMERO.txt
+ create mode 100644 IMPLEMENTATION_SUMMARY.md
+ create mode 100644 INICIAR_CON_DOCKER.bat
+ create mode 100644 LICENSE
+ create mode 100644 PREPARAR_LOCAL_WINDOWS.bat
+ create mode 100644 PREPARAR_LOCAL_WINDOWS.ps1
+ create mode 100644 README.md
+ create mode 100644 SECURITY.md
+ create mode 100644 SUBIR_A_GITHUB_AUTOMATICO.bat
+ create mode 100644 SUBIR_A_GITHUB_AUTOMATICO.ps1
+ create mode 100644 SUBIR_A_GITHUB_AUTOMATICO.sh
+ create mode 100644 app/actions/clients.ts
+ create mode 100644 app/actions/products.ts
+ create mode 100644 app/actions/repair-details.ts
+ create mode 100644 app/actions/repairs.ts
+ create mode 100644 app/actions/settings.ts
+ create mode 100644 app/api/auth/login/route.ts
+ create mode 100644 app/api/auth/logout/route.ts
+ create mode 100644 app/api/customer/access/route.ts
+ create mode 100644 app/api/customer/events/route.ts
+ create mode 100644 app/api/customer/logout/route.ts
+ create mode 100644 app/api/health/route.ts
+ create mode 100644 app/api/sales/route.ts
+ create mode 100644 app/cliente/ClientRealtime.tsx
+ create mode 100644 app/cliente/page.tsx
+ create mode 100644 app/error.tsx
+ create mode 100644 app/globals.css
+ create mode 100644 app/layout.tsx
+ create mode 100644 app/login/page.tsx
+ create mode 100644 app/manifest.ts
+ create mode 100644 app/not-found.tsx
+ create mode 100644 app/page.tsx
+ create mode 100644 app/panel/auditoria/page.tsx
+ create mode 100644 app/panel/clientes/page.tsx
+ create mode 100644 app/panel/configuracion/page.tsx
+ create mode 100644 app/panel/layout.tsx
+ create mode 100644 app/panel/page.tsx
+ create mode 100644 app/panel/pos/PosClient.tsx
+ create mode 100644 app/panel/pos/page.tsx
+ create mode 100644 app/panel/productos/page.tsx
+ create mode 100644 app/panel/reparaciones/[id]/page.tsx
+ create mode 100644 app/panel/reparaciones/nueva/page.tsx
+ create mode 100644 app/panel/reparaciones/page.tsx
+ create mode 100644 app/seguimiento/page.tsx
+ create mode 100644 components/AppLogo.tsx
+ create mode 100644 components/IssuedCode.tsx
+ create mode 100644 components/Sidebar.tsx
+ create mode 100644 components/StatCard.tsx
+ create mode 100644 docker-compose.yml
+ create mode 100644 docs/ACCESS_CONTROL_MATRIX.md
+ create mode 100644 docs/ARCHITECTURE.md
+ create mode 100644 docs/DATABASE.md
+ create mode 100644 docs/RAILWAY.md
+ create mode 100644 docs/TESTING.md
+ create mode 100644 eslint.config.mjs
+ create mode 100644 lib/access-code.ts
+ create mode 100644 lib/audit.ts
+ create mode 100644 lib/auth.ts
+ create mode 100644 lib/customer-auth.ts
+ create mode 100644 lib/db.ts
+ create mode 100644 lib/env.ts
+ create mode 100644 lib/folio.ts
+ create mode 100644 lib/money.ts
+ create mode 100644 lib/permissions.ts
+ create mode 100644 lib/repair-state.ts
+ create mode 100644 lib/security.ts
+ create mode 100644 lib/validation.ts
+ create mode 100644 next-env.d.ts
+ create mode 100644 next.config.ts
+ create mode 100644 package-lock.json
+ create mode 100644 package.json
+ create mode 100644 prisma.config.ts
+ create mode 100644 prisma/migrations/20260710000000_init/migration.sql
+ create mode 100644 prisma/migrations/migration_lock.toml
+ create mode 100644 prisma/schema.prisma
+ create mode 100644 prisma/seed.ts
+ create mode 100644 public/icon.png
+ create mode 100644 public/logo-linoem-transparent.png
+ create mode 100644 public/logo-linoem.png
+ create mode 100644 railway.json
+ create mode 100644 scripts/start-railway.mjs
+ create mode 100644 scripts/verify-env.mjs
+ create mode 100644 tests/access-code.test.ts
+ create mode 100644 tests/money.test.ts
+ create mode 100644 tests/repair-state.test.ts
+ create mode 100644 tsconfig.json
+ create mode 100644 vitest.config.ts
+[OK] Commit creado correctamente.
+PS>TerminatingError(git.exe): "The running command stopped because the preference variable "ErrorActionPreference" or common parameter is set to Stop: error: No such remote 'origin'"
+>> TerminatingError(git.exe): "The running command stopped because the preference variable "ErrorActionPreference" or common parameter is set to Stop: error: No such remote 'origin'"
+>> TerminatingError(git.exe): "The running command stopped because the preference variable "ErrorActionPreference" or common parameter is set to Stop: error: No such remote 'origin'"
+
+============================================================
+ ERROR: error: No such remote 'origin'
+ Revisa el archivo: C:\Users\jesriver\Documents\CELULARES\PUNTO-DE-VENTA-CELULARES-CORREGIDO\punto-de-venta-celulares\SUBIDA_GITHUB_LOG.txt
+============================================================
+**********************
+Windows PowerShell transcript end
+End time: 20260710101950
+**********************
