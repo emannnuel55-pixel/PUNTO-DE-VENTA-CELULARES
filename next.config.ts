@@ -20,23 +20,19 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline'",
       "script-src 'self' 'unsafe-inline'",
       "connect-src 'self'",
-      "upgrade-insecure-requests"
-    ].join("; ")
-  }
+      "upgrade-insecure-requests",
+    ].join("; "),
+  },
 ];
 
 const nextConfig: NextConfig = {
   output: "standalone",
   poweredByHeader: false,
   reactStrictMode: true,
-  experimental: {
-    serverActions: {
-      bodySizeLimit: "2mb"
-    }
-  },
+  experimental: { cpus: 2, serverActions: { bodySizeLimit: "2mb" } },
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];
-  }
+  },
 };
 
 export default nextConfig;

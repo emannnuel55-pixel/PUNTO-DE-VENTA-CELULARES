@@ -1,0 +1,80 @@
+PUNTO DE VENTA CELULARES
+KIT PARA GENERAR LOS PORTALES, COMPILAR Y SUBIR A GITHUB
+
+ARCHIVOS:
+- GENERAR_PORTALES_COMPILAR_Y_SUBIR.py
+- EJECUTAR_GENERADOR_PORTALES.bat
+
+PASOS EXACTOS:
+
+1. Copia los dos archivos dentro de la carpeta principal del proyecto:
+   punto-de-venta-celulares
+
+   Deben quedar junto a:
+   package.json
+   Dockerfile
+   railway.json
+   app
+   prisma
+   public
+
+2. Ejecuta:
+   EJECUTAR_GENERADOR_PORTALES.bat
+
+3. El proceso realizará automáticamente:
+   - Respaldo ZIP de los archivos que modificará.
+   - Portal del cliente.
+   - Portal de trabajadores.
+   - Portal del administrador.
+   - Navegación según roles.
+   - Configuración de Docker y Railway.
+   - Generación de variables privadas.
+   - npm ci.
+   - Prisma Client.
+   - ESLint.
+   - TypeScript.
+   - Pruebas automatizadas.
+   - Compilación de producción de Next.js.
+   - Commit y push opcional a GitHub.
+
+4. Cuando pregunte si deseas subir a GitHub, escribe:
+   S
+
+5. Si GitHub tiene un historial diferente porque los archivos se subieron
+   manualmente, el generador te pedirá escribir:
+   SINCRONIZAR
+
+   Antes de hacerlo crea una rama local de respaldo.
+
+PORTALES RESULTANTES:
+
+- Cliente:
+  /seguimiento
+  /cliente
+
+- Trabajadores:
+  /trabajadores
+  /panel/trabajador
+
+- Administrador:
+  /administrador
+  /panel/administrador
+
+RAILWAY:
+
+Después de ejecutar el generador aparecerá:
+RAILWAY_VARIABLES_PRIVADAS.txt
+
+Copia esas variables en Railway. Ese archivo está excluido de Git y NO debe
+subirse al repositorio.
+
+También debes agregar un servicio PostgreSQL en Railway y configurar
+DATABASE_URL como referencia al DATABASE_URL del servicio PostgreSQL.
+
+IMPORTANTE:
+
+- El generador no guarda contraseñas de GitHub.
+- Si la red de la empresa bloquea GitHub con error 407, los archivos y la
+  compilación quedarán terminados localmente, pero la subida deberá hacerse
+  desde una red permitida o manualmente.
+- Revisa GENERADOR_PORTALES_LOG.txt para ver cada operación realizada.

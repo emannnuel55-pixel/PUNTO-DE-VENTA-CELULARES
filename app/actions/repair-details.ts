@@ -18,7 +18,7 @@ export async function addRepairUpdate(orderId: string, formData: FormData) {
   if (comment.length < 3) throw new Error("Agrega un comentario.");
   const order = await db.repairOrder.findUniqueOrThrow({ where: { id: orderId }, include: { _count: { select: { updates: true } } } });
   const pendingEstimate = await db.estimate.count({ where: { repairOrderId: orderId, status: EstimateStatus.PENDING } });
-  if (pendingEstimate > 0 && [RepairStatus.REPAIRING, RepairStatus.TESTING, RepairStatus.COMPLETED].includes(newStatus)) throw new Error("Existe una cotización adicional pendiente de autorización del cliente.");
+  if (pendingEstimate > 0 && ([RepairStatus.REPAIRING, RepairStatus.TESTING, RepairStatus.COMPLETED] as RepairStatus[]).includes(newStatus)) throw new Error("Existe una cotización adicional pendiente de autorización del cliente.");
   if (!canTransition(order.status, newStatus)) throw new Error(`Transición no permitida: ${order.status} → ${newStatus}`);
   await db.$transaction(async (tx: Prisma.TransactionClient) => {
     await tx.repairOrder.update({ where: { id: orderId }, data: { status: newStatus, diagnosis: diagnosis || order.diagnosis, deliveredAt: newStatus === RepairStatus.DELIVERED ? new Date() : order.deliveredAt, accessCodeRevokedAt: newStatus === RepairStatus.DELIVERED ? new Date() : order.accessCodeRevokedAt } });

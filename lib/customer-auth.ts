@@ -12,8 +12,8 @@ export async function createClientSession(repairOrderId: string) {
     data: {
       tokenHash: sha256(raw),
       repairOrderId,
-      expiresAt: new Date(Date.now() + MAX_AGE_SECONDS * 1000)
-    }
+      expiresAt: new Date(Date.now() + MAX_AGE_SECONDS * 1000),
+    },
   });
   const cookieStore = await cookies();
   cookieStore.set(COOKIE, raw, {
@@ -21,7 +21,7 @@ export async function createClientSession(repairOrderId: string) {
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     path: "/",
-    maxAge: MAX_AGE_SECONDS
+    maxAge: MAX_AGE_SECONDS,
   });
 }
 
@@ -29,6 +29,7 @@ export async function getClientOrder() {
   const cookieStore = await cookies();
   const raw = cookieStore.get(COOKIE)?.value;
   if (!raw) return null;
+
   const session = await db.clientSession.findUnique({
     where: { tokenHash: sha256(raw) },
     include: {
@@ -39,12 +40,17 @@ export async function getClientOrder() {
           branch: true,
           technician: { select: { name: true } },
           updates: { where: { visibleToCustomer: true }, orderBy: { sequence: "asc" } },
-          messages: { where: { visibleToCustomer: true }, orderBy: { createdAt: "asc" } },
-          estimates: { orderBy: { version: "desc" } }
-        }
-      }
-    }
+          messages: {
+            where: { visibleToCustomer: true },
+            orderBy: { createdAt: "asc" },
+            include: { senderUser: { select: { name: true } } },
+          },
+          estimates: { orderBy: { version: "desc" } },
+        },
+      },
+    },
   });
+
   if (!session || session.expiresAt <= new Date()) return null;
   if (session.repairOrder.accessCodeRevokedAt && session.repairOrder.status !== "DELIVERED") return null;
   return session.repairOrder;

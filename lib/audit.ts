@@ -1,4 +1,5 @@
 import { headers } from "next/headers";
+import type { Prisma } from "@/generated/prisma/client";
 import { db } from "@/lib/db";
 
 export async function recordAudit(input: {
@@ -7,7 +8,7 @@ export async function recordAudit(input: {
   entityType: string;
   entityId?: string;
   result?: string;
-  metadata?: Record<string, unknown>;
+  metadata?: Prisma.InputJsonValue;
 }) {
   const headerStore = await headers();
   await db.auditLog.create({
@@ -16,9 +17,9 @@ export async function recordAudit(input: {
       action: input.action,
       entityType: input.entityType,
       entityId: input.entityId,
-      result: input.result || "SUCCESS",
+      result: input.result ?? "SUCCESS",
       metadata: input.metadata,
-      ipAddress: headerStore.get("x-forwarded-for")?.split(",")[0]?.trim()
-    }
+      ipAddress: headerStore.get("x-forwarded-for")?.split(",")[0]?.trim(),
+    },
   });
 }
