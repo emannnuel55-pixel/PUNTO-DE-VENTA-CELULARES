@@ -1,0 +1,13 @@
+node_modules/
+.next/
+.env
+.env.local
+.env.production
+coverage/
+generated/prisma/
+*.log
+.DS_Store
+.vscode/
+.idea/
+.tools/
+SUBIDA_GITHUB_LOG.txt
