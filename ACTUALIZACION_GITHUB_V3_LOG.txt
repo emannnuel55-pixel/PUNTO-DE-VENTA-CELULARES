@@ -1,8 +1,8 @@
 LINOEM DEVELOPMENT - ACTUALIZADOR V3
-Fecha: 2026-07-11T12:10:19.499920
-Proyecto: C:\xampp\htdocs\PUNTO-DE-VENTA-CELULARES-main\PUNTO-DE-VENTA-CELULARES-main
+Fecha: 2026-07-11T12:46:10.442637
+Proyecto: C:\xampp\htdocs\PUNTO-DE-VENTA-CELULARES-LOGIN-CORREGIDO
 Repositorio: https://github.com/emannnuel55-pixel/PUNTO-DE-VENTA-CELULARES.git
 
-[OK] Proyecto: C:\xampp\htdocs\PUNTO-DE-VENTA-CELULARES-main\PUNTO-DE-VENTA-CELULARES-main
+[OK] Proyecto: C:\xampp\htdocs\PUNTO-DE-VENTA-CELULARES-LOGIN-CORREGIDO
 
 [ERROR FINAL] La copia está incompleta. Faltan: package-lock.json, Dockerfile

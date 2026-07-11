@@ -12,6 +12,7 @@ const password = process.env.BOOTSTRAP_ADMIN_PASSWORD;
 const name = process.env.BOOTSTRAP_ADMIN_NAME?.trim() || "Propietario LINOEM";
 const branchCode = process.env.BOOTSTRAP_BRANCH_CODE?.trim().toUpperCase() || "MATRIZ";
 const branchName = process.env.BOOTSTRAP_BRANCH_NAME?.trim() || "Sucursal Matriz";
+const createStaff = process.env.BOOTSTRAP_CREATE_STAFF?.trim().toLowerCase() === "true";
 
 if (!databaseUrl) throw new Error("Falta DATABASE_URL.");
 if (!email) throw new Error("Falta BOOTSTRAP_ADMIN_EMAIL.");
@@ -22,18 +23,22 @@ if (!password || password.length < 12) {
 const adapter = new PrismaPg({ connectionString: databaseUrl });
 const db = new PrismaClient({ adapter });
 
-try {
-  const passwordHash = await hash(password, {
+async function createPasswordHash(value: string) {
+  return hash(value, {
     algorithm: 2,
     memoryCost: 19456,
     timeCost: 3,
     parallelism: 1,
     outputLen: 32,
   });
+}
+
+try {
+  const passwordHash = await createPasswordHash(password);
 
   const branch = await db.branch.upsert({
     where: { code: branchCode },
-    update: { active: true },
+    update: { name: branchName, active: true },
     create: {
       code: branchCode,
       name: branchName,
@@ -41,7 +46,7 @@ try {
     },
   });
 
-  const user = await db.user.upsert({
+  const owner = await db.user.upsert({
     where: { email },
     update: {
       name,
@@ -60,9 +65,47 @@ try {
     },
   });
 
-  console.log(`Administrador creado o actualizado: ${user.email}`);
+  console.log(`Administrador creado o actualizado: ${owner.email}`);
+
+  if (createStaff) {
+    const staff = [
+      {
+        name: "Técnico Principal",
+        email: "tecnico@linoem.mx",
+        role: Role.TECHNICIAN,
+      },
+      {
+        name: "Ventas Mostrador",
+        email: "ventas@linoem.mx",
+        role: Role.SALES,
+      },
+    ];
+
+    for (const account of staff) {
+      const user = await db.user.upsert({
+        where: { email: account.email },
+        update: {
+          name: account.name,
+          passwordHash,
+          role: account.role,
+          active: true,
+          branchId: branch.id,
+        },
+        create: {
+          name: account.name,
+          email: account.email,
+          passwordHash,
+          role: account.role,
+          active: true,
+          branchId: branch.id,
+        },
+      });
+      console.log(`Usuario de personal creado o actualizado: ${user.email}`);
+    }
+  }
+
   console.log(`Sucursal: ${branch.name} (${branch.code})`);
-  console.log("Elimina BOOTSTRAP_ADMIN_PASSWORD de Railway después de ejecutar este comando.");
+  console.log("Por seguridad, elimina BOOTSTRAP_ADMIN_PASSWORD y BOOTSTRAP_CREATE_STAFF después del despliegue correcto.");
 } finally {
   await db.$disconnect();
 }

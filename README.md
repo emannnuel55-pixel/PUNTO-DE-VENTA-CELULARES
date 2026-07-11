@@ -169,3 +169,7 @@ El contenedor ejecuta las migraciones antes de iniciar Next.js.
 ## Seguridad
 
 Esta entrega aplica controles técnicos razonables, pero no representa una certificación ISO, PCI DSS ni fiscal. Antes de operar con datos reales configura respaldos, monitoreo, dominio, correo, almacenamiento de evidencias y revisión legal/fiscal.
+
+## Corrección del acceso inicial en Railway
+
+Si el login indica que el administrador está pendiente de configurar, PostgreSQL todavía no contiene usuarios. Consulta `CORREGIR_LOGIN_RAILWAY.md` y configura temporalmente las variables `BOOTSTRAP_ADMIN_EMAIL`, `BOOTSTRAP_ADMIN_PASSWORD` y `BOOTSTRAP_CREATE_STAFF`. El arranque crea o actualiza las cuentas sin borrar el resto de los datos.

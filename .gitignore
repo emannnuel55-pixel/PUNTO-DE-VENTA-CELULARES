@@ -21,9 +21,13 @@ _sync_logs/
 *.key
 *.p12
 *.pfx
+__pycache__/
+*.pyc
+ACTUALIZACION_GITHUB*_LOG.txt
 
-# Reglas agregadas por SUBIR_A_GITHUB_CORREGIDO.py
+# Protección agregada por LINOEM_POS_CELULARES_GITHUB_SYNC.py
 # Dependencias
+vendor/
 
 # Variables privadas y secretos
 .env.*
@@ -35,7 +39,6 @@ build/
 out/
 
 # Caché y temporales
-__pycache__/
 *.py[cod]
 .pytest_cache/
 .cache/
@@ -44,7 +47,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Editores y sistema
+# Sistema y editores
 .idea/
 .vscode/
 .DS_Store
@@ -56,29 +59,8 @@ desktop.ini
 *.sqlite3
 *.db
 
-# Comprimidos y respaldos
+# Respaldos y comprimidos
 *.zip
 *.rar
 *.7z
 *.bak
-
-# Protección LINOEM automática
-# Dependencias
-vendor/
-
-# Variables privadas y secretos
-
-# Compilaciones
-
-# Caché, sistema y temporales
-
-# Bases de datos locales
-
-# Respaldos y comprimidos
-
-# Utilidades locales de sincronización
-DNS_BACKUP_LINOEM.json
-SUBIR_A_GITHUB*.py
-REPARAR_DNS*.py
-LINOEM_*GITHUB*.py
-LINOEM_REPARAR_DNS_Y_SUBIR_POS.py
