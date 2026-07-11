@@ -8,8 +8,14 @@ import { recordAudit } from "@/lib/audit";
 
 const adminRoles: Role[] = [Role.OWNER, Role.ADMIN, Role.MANAGER];
 
+function getAbsoluteUrl(targetPath: string, request: Request): URL {
+  const host = request.headers.get("x-forwarded-host") || request.headers.get("host") || "localhost:8080";
+  const proto = request.headers.get("x-forwarded-proto") || "https";
+  return new URL(targetPath, `${proto}://${host}`);
+}
+
 function redirectToLogin(request: Request, error: "credentials" | "setup" | "server") {
-  return NextResponse.redirect(new URL(`/login?error=${error}`, request.url), 303);
+  return NextResponse.redirect(getAbsoluteUrl(`/login?error=${error}`, request), 303);
 }
 
 export async function POST(request: Request) {
@@ -52,7 +58,7 @@ export async function POST(request: Request) {
     });
 
     const target = adminRoles.includes(user.role) ? "/panel/administrador" : "/panel/trabajador";
-    return NextResponse.redirect(new URL(target, request.url), 303);
+    return NextResponse.redirect(getAbsoluteUrl(target, request), 303);
   } catch (error) {
     console.error("Employee login error:", error);
     return redirectToLogin(request, "server");
