@@ -16,18 +16,29 @@ function run(command, args) {
   });
 }
 
-if (!process.env.DATABASE_URL) {
-  throw new Error("DATABASE_URL no está configurada en Railway.");
+async function start() {
+  const port = process.env.PORT || "8080";
+
+  if (!process.env.DATABASE_URL) {
+    console.error("⚠️ DATABASE_URL no está configurada en Railway. El portal de login mostrará un error.");
+  } else {
+    try {
+      console.log("Sincronizando base de datos...");
+      await run("npx", ["--no-install", "prisma", "db", "push", "--accept-data-loss"]);
+
+      if (process.env.BOOTSTRAP_ADMIN_EMAIL && process.env.BOOTSTRAP_ADMIN_PASSWORD) {
+        console.log("Ejecutando creación o actualización segura de usuarios iniciales...");
+        await run("npm", ["run", "admin:bootstrap"]);
+      } else if (process.env.BOOTSTRAP_ADMIN_EMAIL || process.env.BOOTSTRAP_ADMIN_PASSWORD) {
+        console.warn("⚠️ Bootstrap omitido: BOOTSTRAP_ADMIN_EMAIL y BOOTSTRAP_ADMIN_PASSWORD deben configurarse juntos.");
+      }
+    } catch (error) {
+      console.error("⚠️ Error durante la inicialización de la base de datos (se ignorará para permitir que la app arranque):", error);
+    }
+  }
+
+  console.log("Iniciando Next.js...");
+  await run("npx", ["--no-install", "next", "start", "-H", "0.0.0.0", "-p", port]);
 }
 
-const port = process.env.PORT || "8080";
-await run("npx", ["--no-install", "prisma", "db", "push", "--accept-data-loss"]);
-
-if (process.env.BOOTSTRAP_ADMIN_EMAIL && process.env.BOOTSTRAP_ADMIN_PASSWORD) {
-  console.log("Ejecutando creación o actualización segura de usuarios iniciales...");
-  await run("npm", ["run", "admin:bootstrap"]);
-} else if (process.env.BOOTSTRAP_ADMIN_EMAIL || process.env.BOOTSTRAP_ADMIN_PASSWORD) {
-  console.warn("Bootstrap omitido: BOOTSTRAP_ADMIN_EMAIL y BOOTSTRAP_ADMIN_PASSWORD deben configurarse juntos.");
-}
-
-await run("npx", ["--no-install", "next", "start", "-H", "0.0.0.0", "-p", port]);
+start().catch(console.error);
