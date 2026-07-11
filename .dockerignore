@@ -1,0 +1,10 @@
+node_modules
+.next
+.git
+.env
+.env.*
+coverage
+*.log
+_auto_backups
+Dockerfile.backup-*
+RAILWAY_VARIABLES_PRIVADAS.txt

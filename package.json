@@ -1,0 +1,60 @@
+{
+  "name": "punto-de-venta-celulares",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0 <23"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start -H 0.0.0.0",
+    "start:railway": "node scripts/start-railway.mjs",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy",
+    "db:seed": "prisma db seed",
+    "db:studio": "prisma studio",
+    "verify": "npm run lint && npm run typecheck && npm run test && npm run build",
+    "prebuild": "npm run db:generate",
+    "admin:bootstrap": "npx --yes tsx scripts/bootstrap-admin.ts"
+  },
+  "dependencies": {
+    "@node-rs/argon2": "2.0.2",
+    "@prisma/adapter-pg": "7.8.0",
+    "@prisma/client": "7.8.0",
+    "jose": "6.2.3",
+    "lucide-react": "0.468.0",
+    "next": "16.2.10",
+    "pg": "8.22.0",
+    "prisma": "7.8.0",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@types/chai": "^5.2.3",
+    "@types/node": "26.1.1",
+    "@types/pg": "8.15.6",
+    "@types/react": "19.2.17",
+    "@types/react-dom": "19.2.3",
+    "eslint": "9.39.2",
+    "eslint-config-next": "16.2.10",
+    "tsx": "4.23.0",
+    "typescript": "5.9.3",
+    "vitest": "4.1.10"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "overrides": {
+    "@hono/node-server": "1.19.13",
+    "postcss": "8.5.10"
+  },
+  "packageManager": "pnpm@9.12.0"
+}

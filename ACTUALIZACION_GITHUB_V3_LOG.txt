@@ -1,0 +1,33 @@
+LINOEM DEVELOPMENT - ACTUALIZADOR V3
+Fecha: 2026-07-11T07:03:37.055216
+Proyecto: C:\Users\jesriver\Documents\PUNTO-DE-VENTA-CELULARES
+Repositorio: https://github.com/emannnuel55-pixel/PUNTO-DE-VENTA-CELULARES.git
+
+[OK] Proyecto: C:\Users\jesriver\Documents\PUNTO-DE-VENTA-CELULARES
+[OK] node: C:\Program Files\nodejs\node.exe [executable]
+[OK] npm: C:\Program Files\nodejs\node_modules\npm\bin\npm-cli.js [node-script]
+[OK] npx: C:\Program Files\nodejs\node_modules\npm\bin\npx-cli.js [node-script]
+[OK] git: C:\Program Files\Git\cmd\git.exe [executable]
+[OK] Respaldo local: C:\Users\jesriver\Documents\PUNTO-DE-VENTA-CELULARES\_auto_backups\proyecto_completo_v3_20260711-070337.zip
+[OK] Corregido: C:\Users\jesriver\Documents\PUNTO-DE-VENTA-CELULARES\Dockerfile
+[OK] Corregido: C:\Users\jesriver\Documents\PUNTO-DE-VENTA-CELULARES\prisma.config.ts
+[OK] Corregido: C:\Users\jesriver\Documents\PUNTO-DE-VENTA-CELULARES\scripts\start-railway.mjs
+[OK] Corregido: C:\Users\jesriver\Documents\PUNTO-DE-VENTA-CELULARES\railway.json
+[OK] Corregido: package.json
+[OK] package-lock.json conservado. No debe eliminarse.
+
+$ "C:\Program Files\nodejs\node.exe" --version
+v22.21.1
+
+$ "C:\Program Files\nodejs\node.exe" "C:\Program Files\nodejs\node_modules\npm\bin\npm-cli.js" --version
+10.9.4
+
+$ "C:\Program Files\Git\cmd\git.exe" --version
+git version 2.55.0.windows.1
+[INFO] Node: v22.21.1
+[INFO] npm: 10.9.4
+[INFO] Git: git version 2.55.0.windows.1
+
+$ "C:\Program Files\nodejs\node.exe" "C:\Program Files\nodejs\node_modules\npm\bin\npm-cli.js" ci --no-audit --no-fund --prefer-online
+(node:21348) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 socket listeners added to [ClientRequest]. MaxListeners is 10. Use emitter.setMaxListeners() to increase limit
+(Use `node --trace-warnings ...` to show where the warning was created)

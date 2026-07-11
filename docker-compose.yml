@@ -1,0 +1,35 @@
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: punto_venta_celulares
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d punto_venta_celulares"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  app:
+    build: .
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/punto_venta_celulares?schema=public
+      SESSION_SECRET: desarrollo-local-cambiar-por-secreto-seguro-de-64-caracteres-minimo
+      ACCESS_CODE_SECRET: desarrollo-local-cambiar-por-otro-secreto-de-64-caracteres-minimo
+      NEXT_PUBLIC_APP_NAME: PUNTO DE VENTA CELULARES
+      NEXT_PUBLIC_COMPANY_NAME: LINOEM DEVELOPMENT
+      NODE_ENV: production
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
