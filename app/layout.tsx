@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { appName, companyName } from "@/lib/env";
+import { cookies } from "next/headers";
 
 export const metadata: Metadata = {
   title: { default: `${appName} | ${companyName}`, template: `%s | ${appName}` },
@@ -8,6 +9,16 @@ export const metadata: Metadata = {
   icons: { icon: "/icon.png" }
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="es"><body>{children}</body></html>;
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const cookieStore = await cookies();
+  const theme = cookieStore.get("pvc_theme")?.value || "dark";
+  const themeClass = theme === "light" ? "light-theme" : "";
+  
+  return (
+    <html lang="es" className={themeClass}>
+      <body className={themeClass}>
+        {children}
+      </body>
+    </html>
+  );
 }

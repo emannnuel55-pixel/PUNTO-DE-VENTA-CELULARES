@@ -40,6 +40,7 @@ export async function createRepair(formData: FormData) {
         receivedById: user.id, technicianId: data.technicianId || null, issue: data.issue, physicalCondition: data.physicalCondition || null,
         accessories: data.accessories || null, initialEstimate: data.initialEstimate, deposit: data.deposit, total: data.initialEstimate,
         promisedAt: data.promisedAt ? new Date(data.promisedAt) : null, accessCodeHash: credential.hash, accessCodeLookup: credential.lookup, accessCodeLast4: credential.last4,
+        accessCodePlain: credential.code,
         updates: { create: { userId: user.id, newStatus: RepairStatus.RECEIVED, sequence: 1, comment: "Equipo recibido y orden creada." } },
         photos: {
           create: parsedPhotos.map((url) => ({ url }))
@@ -65,7 +66,7 @@ export async function revokeClientAccess(orderId: string) {
 export async function regenerateClientAccess(orderId: string) {
   const user = await requireUser(repairWriteRoles);
   const credential = await createAccessCredential();
-  await db.$transaction([db.repairOrder.update({ where: { id: orderId }, data: { accessCodeHash: credential.hash, accessCodeLookup: credential.lookup, accessCodeLast4: credential.last4, accessCodeRevokedAt: null } }), db.clientSession.deleteMany({ where: { repairOrderId: orderId } })]);
+  await db.$transaction([db.repairOrder.update({ where: { id: orderId }, data: { accessCodeHash: credential.hash, accessCodeLookup: credential.lookup, accessCodeLast4: credential.last4, accessCodePlain: credential.code, accessCodeRevokedAt: null } }), db.clientSession.deleteMany({ where: { repairOrderId: orderId } })]);
   await recordAudit({ actorUserId: user.id, action: "CLIENT_ACCESS_REGENERATE", entityType: "RepairOrder", entityId: orderId });
   const secret = new TextEncoder().encode(requiredEnv("SESSION_SECRET"));
   const token = await new SignJWT({ repairOrderId: orderId, code: credential.code }).setProtectedHeader({ alg: "HS256" }).setExpirationTime("5m").sign(secret);

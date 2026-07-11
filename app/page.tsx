@@ -2,6 +2,7 @@ import Link from "next/link";
 import { AppLogo } from "@/components/AppLogo";
 import { ArrowRight, Search, Phone, ShieldCheck, MapPin } from "lucide-react";
 import { db } from "@/lib/db";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export const dynamic = "force-dynamic";
 
@@ -21,6 +22,7 @@ export default async function HomePage() {
           <div className="nav-links">
             <Link href="#tienda">Tienda</Link>
             <Link href="#reparaciones">Reparaciones</Link>
+            <ThemeToggle />
             <Link href="https://punto-de-venta-celulares-production.up.railway.app/login" className="nav-admin">Acceso empleados</Link>
           </div>
         </div>

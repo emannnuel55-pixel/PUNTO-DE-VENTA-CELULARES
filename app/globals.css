@@ -816,3 +816,193 @@ tr:hover td {
 .chat-message.system {
   background: rgba(255, 255, 255, 0.05) !important;
 }
+
+/* ===== TEMA CLARO (LIGHT THEME OVERRIDES) ===== */
+.light-theme {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+.light-theme body {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+.light-theme .panel-shell {
+  background-color: #f1f5f9 !important;
+}
+
+.light-theme .panel-topbar {
+  background: rgba(255, 255, 255, 0.8) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+  color: #0f172a !important;
+}
+
+.light-theme .panel-topbar h1 {
+  color: #0f172a !important;
+}
+
+.light-theme .page-header h2 {
+  color: #0f172a !important;
+}
+
+.light-theme .card {
+  background: rgba(255, 255, 255, 0.75) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
+  color: #0f172a !important;
+}
+.light-theme .card h3 {
+  color: #0f172a !important;
+}
+
+.light-theme .stat-card {
+  background: rgba(255, 255, 255, 0.75) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
+  color: #0f172a !important;
+}
+.light-theme .stat-card strong {
+  color: #0f172a !important;
+}
+.light-theme .stat-card span {
+  color: #64748b !important;
+}
+
+.light-theme .field label {
+  color: #475569 !important;
+}
+.light-theme .field input, .light-theme .field textarea, .light-theme .field select {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important;
+}
+.light-theme .field input:focus, .light-theme .field textarea:focus, .light-theme .field select:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1) !important;
+}
+
+.light-theme table {
+  background: rgba(255, 255, 255, 0.5) !important;
+}
+.light-theme th {
+  background: rgba(241, 245, 249, 0.8) !important;
+  color: #475569 !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+.light-theme td {
+  color: #334155 !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+.light-theme tr:hover td {
+  background: rgba(0, 0, 0, 0.02) !important;
+}
+
+/* Timeline */
+.light-theme .timeline-item {
+  border-left-color: rgba(0, 0, 0, 0.08) !important;
+}
+.light-theme .timeline-item span {
+  color: #334155 !important;
+}
+.light-theme .timeline-item small {
+  color: #64748b !important;
+}
+
+/* Chat */
+.light-theme .chat-message {
+  background: rgba(59, 130, 246, 0.1) !important;
+  color: #0f172a !important;
+}
+.light-theme .chat-message.customer {
+  background: rgba(16, 185, 129, 0.1) !important;
+}
+.light-theme .chat-message.system {
+  background: rgba(0, 0, 0, 0.04) !important;
+  color: #64748b !important;
+}
+
+/* Storefront light overrides */
+.light-theme.store-shell {
+  background: #f8fafc !important;
+  color: #0f172a !important;
+}
+.light-theme .store-nav {
+  background: rgba(255,255,255,0.72) !important;
+  border-bottom: 1px solid rgba(0,0,0,0.1) !important;
+}
+.light-theme .store-nav a {
+  color: #334155 !important;
+}
+.light-theme .store-hero p {
+  color: #475569 !important;
+}
+.light-theme .repair-widget {
+  background: rgba(255,255,255,0.8) !important;
+  border: 1px solid rgba(0,0,0,0.1) !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05) !important;
+}
+.light-theme .repair-widget p {
+  color: #475569 !important;
+}
+.light-theme .widget-input {
+  background: white !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important;
+}
+.light-theme .catalog-header h2 {
+  color: #0f172a !important;
+}
+.light-theme .catalog-header p {
+  color: #475569 !important;
+}
+.light-theme .catalog-item {
+  background: white !important;
+  border: 1px solid rgba(0,0,0,0.05) !important;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.02) !important;
+}
+.light-theme .catalog-item:hover {
+  background: #f8fafc !important;
+}
+.light-theme .catalog-item h3 {
+  color: #0f172a !important;
+}
+.light-theme .catalog-price-row {
+  border-top-color: rgba(0,0,0,0.05) !important;
+}
+.light-theme .guarantee-box {
+  background: white !important;
+  border: 1px solid rgba(0,0,0,0.05) !important;
+}
+.light-theme .guarantee-box p {
+  color: #475569 !important;
+}
+.light-theme .store-footer {
+  border-top-color: rgba(0,0,0,0.05) !important;
+}
+
+/* Client portal tracking view light theme */
+.light-theme .client-shell {
+  background: linear-gradient(180deg, #07124a 0 280px, #f1f5f9 280px) !important;
+}
+.light-theme .client-card {
+  background: white !important;
+  border: 1px solid rgba(0,0,0,0.05) !important;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.05) !important;
+}
+.light-theme .client-card h3 {
+  color: #0f172a !important;
+}
+.light-theme .client-summary > div {
+  background: #f8fafc !important;
+}
+.light-theme .info-row {
+  border-bottom-color: rgba(0,0,0,0.05) !important;
+}
+.light-theme .estimate-card {
+  border-color: #cbd5e1 !important;
+}
+.light-theme .estimate-card.pending {
+  background: #fffdf5 !important;
+  border-color: #fde047 !important;
+}

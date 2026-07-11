@@ -4,6 +4,7 @@ import { decideEstimate, sendCustomerMessage } from "@/app/actions/repair-detail
 import { requireClientOrder } from "@/lib/customer-auth";
 import { formatMoney } from "@/lib/money";
 import { repairStatusLabels, statusProgress } from "@/lib/repair-state";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export const dynamic = "force-dynamic";
 
@@ -42,9 +43,12 @@ export default async function ClientPage() {
     <main className="client-shell">
       <ClientRealtime />
       <div className="client-container">
-        <header className="client-header">
+        <header className="client-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <AppLogo />
-          <form action="/api/customer/logout" method="post"><button className="btn btn-secondary">Cerrar seguimiento</button></form>
+          <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+            <ThemeToggle />
+            <form action="/api/customer/logout" method="post"><button className="btn btn-secondary">Cerrar seguimiento</button></form>
+          </div>
         </header>
 
         <section className="client-card client-hero-card">
@@ -53,11 +57,56 @@ export default async function ClientPage() {
             <div><h2>{order.device.brand} {order.device.model}</h2><p>Orden {order.publicFolio}</p></div>
             <span className="badge success">{repairStatusLabels[order.status]}</span>
           </div>
-          <div className="progress"><span style={{ width: `${progress}%` }} /></div>
-          <div className="client-summary">
-            <div><span>Avance</span><strong>{progress}%</strong></div>
-            <div><span>Total autorizado</span><strong>{formatMoney(order.total)}</strong></div>
-            <div><span>Anticipo</span><strong>{formatMoney(order.deposit)}</strong></div>
+          {/* Stepper Interactivo Innovador */}
+          <div className="stepper-container" style={{ margin: "32px 0 24px" }}>
+            <div className="stepper-wrapper" style={{ display: "flex", justifyContent: "space-between", position: "relative", alignItems: "center" }}>
+              <div style={{ position: "absolute", left: "0", right: "0", height: "4px", background: "rgba(255,255,255,0.08)", zIndex: 1 }} className="stepper-bar-bg" />
+              <div style={{ position: "absolute", left: "0", width: `${progress === 100 ? 100 : progress === 0 ? 0 : Math.max(5, progress - 10)}%`, height: "4px", background: "linear-gradient(90deg, #3b82f6, #06b6d4)", zIndex: 2, transition: "width 0.4s ease" }} className="stepper-bar-fill" />
+
+              {[
+                { label: "Recibido", minProgress: 5, desc: "Registrado" },
+                { label: "Diagnóstico", minProgress: 20, desc: "Evaluando fallas" },
+                { label: "Reparación", minProgress: 45, desc: "En trabajo técnico" },
+                { label: "Listo para entrega", minProgress: 90, desc: "Listo para retirar" }
+              ].map((step, idx) => {
+                const isCompleted = progress >= step.minProgress;
+                const isActive = order.status !== "DELIVERED" && isCompleted && (idx === 3 || progress < [5, 20, 45, 90][idx + 1]);
+                
+                return (
+                  <div key={idx} style={{ display: "flex", flexDirection: "column", alignItems: "center", zIndex: 3, position: "relative", flex: 1 }}>
+                    <div style={{
+                      width: "36px",
+                      height: "36px",
+                      borderRadius: "50%",
+                      background: isCompleted ? "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)" : "#1e293b",
+                      border: isActive ? "3px solid #60a5fa" : "1px solid rgba(255,255,255,0.1)",
+                      boxShadow: isActive ? "0 0 15px rgba(59,130,246,0.6)" : "none",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: isCompleted ? "#fff" : "#64748b",
+                      fontWeight: "bold",
+                      fontSize: "0.9rem",
+                      transition: "all 0.3s ease"
+                    }} className="step-circle">
+                      {idx + 1}
+                    </div>
+                    <span style={{ fontSize: "0.85rem", fontWeight: isCompleted ? "bold" : "normal", color: isCompleted ? "#f8fafc" : "#64748b", marginTop: "8px", textAlign: "center" }} className="step-label">
+                      {step.label}
+                    </span>
+                    <small style={{ fontSize: "0.7rem", color: "#64748b", display: "block", marginTop: "2px", textAlign: "center" }} className="step-desc">
+                      {step.desc}
+                    </small>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="client-summary" style={{ marginTop: "32px" }}>
+            <div><span>Avance global</span><strong>{progress}%</strong></div>
+            <div><span>Total presupuestado</span><strong>{formatMoney(order.total)}</strong></div>
+            <div><span>Anticipo pagado</span><strong>{formatMoney(order.deposit)}</strong></div>
             <div><span>Fecha estimada</span><strong>{order.promisedAt ? order.promisedAt.toLocaleDateString("es-MX") : "Por confirmar"}</strong></div>
           </div>
         </section>

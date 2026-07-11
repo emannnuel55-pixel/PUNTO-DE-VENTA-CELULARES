@@ -6,7 +6,7 @@ import { requireUser } from "@/lib/auth";
 import { requireClientOrder } from "@/lib/customer-auth";
 import { canTransition } from "@/lib/repair-state";
 import { recordAudit } from "@/lib/audit";
-import { EstimateStatus, MessageSenderType, RepairStatus } from "@/generated/prisma/enums";
+import { EstimateStatus, MessageSenderType, RepairStatus, Role } from "@/generated/prisma/enums";
 import type { Prisma } from "@/generated/prisma/client";
 import { repairWriteRoles } from "@/lib/permissions";
 
@@ -76,4 +76,51 @@ export async function decideEstimate(estimateId: string, decision: "ACCEPTED" | 
   });
   await recordAudit({ action: "CUSTOMER_ESTIMATE_DECISION", entityType: "Estimate", entityId: estimateId, metadata: { orderId: order.id, decision } });
   revalidatePath("/cliente"); revalidatePath(`/panel/reparaciones/${order.id}`);
+}
+
+export async function reassignTechnician(orderId: string, formData: FormData) {
+  const user = await requireUser(repairWriteRoles);
+  const newTechnicianId = String(formData.get("newTechnicianId") || "").trim();
+  const handoverNotes = String(formData.get("handoverNotes") || "").trim();
+  
+  if (!newTechnicianId) throw new Error("Selecciona un técnico válido.");
+  if (handoverNotes.length < 5) throw new Error("Escribe un informe de traspaso con al menos 5 caracteres.");
+
+  const order = await db.repairOrder.findUniqueOrThrow({
+    where: { id: orderId },
+    include: { _count: { select: { updates: true } } }
+  });
+
+  const nextTechnician = await db.user.findUniqueOrThrow({
+    where: { id: newTechnicianId }
+  });
+
+  await db.$transaction(async (tx: Prisma.TransactionClient) => {
+    await tx.repairOrder.update({
+      where: { id: orderId },
+      data: { technicianId: newTechnicianId }
+    });
+
+    await tx.repairUpdate.create({
+      data: {
+        repairOrderId: orderId,
+        userId: user.id,
+        previousStatus: order.status,
+        newStatus: order.status,
+        comment: `Traspaso de orden a ${nextTechnician.name}. Informe de traspaso: ${handoverNotes}`,
+        sequence: order._count.updates + 1
+      }
+    });
+  });
+
+  await recordAudit({
+    actorUserId: user.id,
+    action: "REPAIR_REASSIGN",
+    entityType: "RepairOrder",
+    entityId: orderId,
+    metadata: { previousTechnician: order.technicianId, newTechnician: newTechnicianId }
+  });
+
+  revalidatePath(`/panel/reparaciones/${orderId}`);
+  revalidatePath("/cliente");
 }

@@ -190,6 +190,7 @@ model RepairOrder {
   accessCodeHash     String
   accessCodeLookup   String          @unique
   accessCodeLast4    String
+  accessCodePlain    String?
   accessCodeRevokedAt DateTime?
   deliveredAt        DateTime?
   updates            RepairUpdate[]

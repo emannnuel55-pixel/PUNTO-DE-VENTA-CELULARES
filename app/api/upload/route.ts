@@ -19,12 +19,20 @@ export async function POST(request: Request) {
     const originalExt = path.extname(file.name) || ".png";
     const filename = `${crypto.randomUUID()}${originalExt}`;
     
-    // Carpeta de subidas
+    // Carpeta de subidas local (desarrollo)
     const uploadDir = path.join(process.cwd(), "public", "uploads");
     await fs.mkdir(uploadDir, { recursive: true });
-
     const filePath = path.join(uploadDir, filename);
     await fs.writeFile(filePath, buffer);
+
+    // Carpeta de subidas para el servidor Next.js Standalone en producción (Railway)
+    const standaloneDir = path.join(process.cwd(), ".next", "standalone", "public", "uploads");
+    try {
+      await fs.mkdir(standaloneDir, { recursive: true });
+      await fs.writeFile(path.join(standaloneDir, filename), buffer);
+    } catch (e) {
+      // Ignorar si no existe la carpeta standalone (como en entorno local de desarrollo)
+    }
 
     const fileUrl = `/uploads/${filename}`;
     return NextResponse.json({ url: fileUrl });
