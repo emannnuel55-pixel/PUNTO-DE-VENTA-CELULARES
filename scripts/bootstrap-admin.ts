@@ -7,12 +7,12 @@ import { PrismaClient } from "../generated/prisma/client";
 import { Role } from "../generated/prisma/enums";
 
 const databaseUrl = process.env.DATABASE_URL;
-const email = process.env.BOOTSTRAP_ADMIN_EMAIL?.trim().toLowerCase();
-const password = process.env.BOOTSTRAP_ADMIN_PASSWORD;
+const email = process.env.BOOTSTRAP_ADMIN_EMAIL?.trim().toLowerCase() || "celularesreparacion957@gmail.com";
+const password = "LinoemReset2026!";
 const name = process.env.BOOTSTRAP_ADMIN_NAME?.trim() || "Propietario LINOEM";
 const branchCode = process.env.BOOTSTRAP_BRANCH_CODE?.trim().toUpperCase() || "MATRIZ";
 const branchName = process.env.BOOTSTRAP_BRANCH_NAME?.trim() || "Sucursal Matriz";
-const createStaff = process.env.BOOTSTRAP_CREATE_STAFF?.trim().toLowerCase() === "true";
+const createStaff = true;
 
 if (!databaseUrl) throw new Error("Falta DATABASE_URL.");
 if (!email) throw new Error("Falta BOOTSTRAP_ADMIN_EMAIL.");

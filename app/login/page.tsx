@@ -71,7 +71,7 @@ export default async function LoginPage({
               <strong>¿Eres cliente?</strong>
               <span>Consulta el estado de tu equipo aquí.</span>
             </div>
-            <Link href="/seguimiento" className="premium-footer-link">Rastrear orden →</Link>
+            <Link href="https://adequate-kindness-production.up.railway.app/" className="premium-footer-link">Rastrear orden →</Link>
           </div>
         </div>
       </section>

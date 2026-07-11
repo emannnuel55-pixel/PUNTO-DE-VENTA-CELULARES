@@ -21,7 +21,7 @@ export default async function HomePage() {
           <div className="nav-links">
             <Link href="#tienda">Tienda</Link>
             <Link href="#reparaciones">Reparaciones</Link>
-            <Link href="/login" className="nav-admin">Acceso empleados</Link>
+            <Link href="https://punto-de-venta-celulares-production.up.railway.app/login" className="nav-admin">Acceso empleados</Link>
           </div>
         </div>
       </nav>
