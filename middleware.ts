@@ -8,9 +8,9 @@ export function middleware(request: NextRequest) {
   // Si no hay modo configurado (desarrollo local), permitimos todo.
   if (!mode) return NextResponse.next();
 
-  // MODO ADMIN: Bloquear página principal (catálogo) y seguimiento, forzar a ir a /login
+  // MODO ADMIN: Bloquear página principal (catálogo), seguimiento y cliente, forzar a ir a /login
   if (mode === "admin") {
-    if (pathname === "/" || pathname.startsWith("/seguimiento")) {
+    if (pathname === "/" || pathname.startsWith("/seguimiento") || pathname.startsWith("/cliente")) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
   }
