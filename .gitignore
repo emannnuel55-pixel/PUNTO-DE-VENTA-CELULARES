@@ -61,3 +61,24 @@ desktop.ini
 *.rar
 *.7z
 *.bak
+
+# Protección LINOEM automática
+# Dependencias
+vendor/
+
+# Variables privadas y secretos
+
+# Compilaciones
+
+# Caché, sistema y temporales
+
+# Bases de datos locales
+
+# Respaldos y comprimidos
+
+# Utilidades locales de sincronización
+DNS_BACKUP_LINOEM.json
+SUBIR_A_GITHUB*.py
+REPARAR_DNS*.py
+LINOEM_*GITHUB*.py
+LINOEM_REPARAR_DNS_Y_SUBIR_POS.py
