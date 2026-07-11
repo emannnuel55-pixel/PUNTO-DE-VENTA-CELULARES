@@ -21,3 +21,43 @@ _sync_logs/
 *.key
 *.p12
 *.pfx
+
+# Reglas agregadas por SUBIR_A_GITHUB_CORREGIDO.py
+# Dependencias
+
+# Variables privadas y secretos
+.env.*
+!.env.example
+
+# Compilaciones
+dist/
+build/
+out/
+
+# Caché y temporales
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.cache/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editores y sistema
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Bases de datos locales
+*.sqlite
+*.sqlite3
+*.db
+
+# Comprimidos y respaldos
+*.zip
+*.rar
+*.7z
+*.bak
