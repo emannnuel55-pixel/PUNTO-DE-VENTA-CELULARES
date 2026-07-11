@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "npm run db:generate && next build",
+    "build": "next build",
     "start": "next start",
     "start:railway": "node scripts/start-railway.mjs",
     "lint": "eslint .",
@@ -54,3 +54,4 @@
     "postcss": "8.5.10"
   }
 }
+

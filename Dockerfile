@@ -8,21 +8,23 @@ ENV NEXT_TELEMETRY_DISABLED=1 \
     NPM_CONFIG_FUND=false \
     NPM_CONFIG_UPDATE_NOTIFIER=false \
     NPM_CONFIG_PROGRESS=false \
-    NPM_CONFIG_FETCH_RETRIES=5
+    NPM_CONFIG_FETCH_RETRIES=5 \
+    NPM_CONFIG_FETCH_RETRY_MINTIMEOUT=20000 \
+    NPM_CONFIG_FETCH_RETRY_MAXTIMEOUT=120000
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends openssl ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
-COPY package.json package-lock.json ./
+COPY package.json ./
 
-RUN npm ci --no-audit --no-fund
+RUN npm install --no-audit --no-fund --legacy-peer-deps
 
 FROM node:22-bookworm-slim AS builder
 WORKDIR /app
 
 ENV NEXT_TELEMETRY_DISABLED=1 \
-    NODE_OPTIONS=--max-old-space-size=768
+    NODE_OPTIONS=--max-old-space-size=1024
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends openssl ca-certificates \
@@ -63,3 +65,4 @@ USER nextjs
 EXPOSE 8080
 
 CMD ["npm", "run", "start:railway"]
+
