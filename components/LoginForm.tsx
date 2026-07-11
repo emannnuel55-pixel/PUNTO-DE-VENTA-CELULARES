@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Eye, EyeOff, LoaderCircle, LockKeyhole, LogIn, Mail } from "lucide-react";
+import { Eye, EyeOff, LoaderCircle, Lock, Mail, ArrowRight } from "lucide-react";
 
 export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -11,13 +11,13 @@ export function LoginForm() {
     <form
       action="/api/auth/login"
       method="post"
-      className="login-form"
+      className="premium-form"
       onSubmit={() => setSubmitting(true)}
     >
-      <div className="login-field">
+      <div className="premium-field-group">
         <label htmlFor="email">Correo electrónico</label>
-        <div className="login-input-shell">
-          <Mail aria-hidden="true" size={19} />
+        <div className="premium-input-wrapper">
+          <Mail className="premium-input-icon" size={18} />
           <input
             id="email"
             name="email"
@@ -27,18 +27,16 @@ export function LoginForm() {
             autoCapitalize="none"
             spellCheck={false}
             required
-            placeholder="admin@linoem.mx"
+            placeholder="ejemplo@empresa.com"
+            className="premium-input"
           />
         </div>
       </div>
 
-      <div className="login-field">
-        <div className="login-label-row">
-          <label htmlFor="password">Contraseña</label>
-          <span>Acceso seguro</span>
-        </div>
-        <div className="login-input-shell">
-          <LockKeyhole aria-hidden="true" size={19} />
+      <div className="premium-field-group">
+        <label htmlFor="password">Contraseña</label>
+        <div className="premium-input-wrapper">
+          <Lock className="premium-input-icon" size={18} />
           <input
             id="password"
             name="password"
@@ -46,30 +44,31 @@ export function LoginForm() {
             autoComplete="current-password"
             required
             minLength={8}
-            placeholder="Escribe tu contraseña"
+            placeholder="••••••••"
+            className="premium-input"
           />
           <button
-            className="password-toggle"
+            className="premium-password-toggle"
             type="button"
             aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
             aria-pressed={showPassword}
             onClick={() => setShowPassword((current) => !current)}
           >
-            {showPassword ? <EyeOff size={19} /> : <Eye size={19} />}
+            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
           </button>
         </div>
       </div>
 
-      <button className="login-submit" type="submit" disabled={submitting}>
+      <button className="premium-submit-btn" type="submit" disabled={submitting}>
         {submitting ? (
           <>
-            <LoaderCircle className="login-spinner" aria-hidden="true" size={20} />
-            Verificando acceso...
+            <LoaderCircle className="premium-spinner" size={20} />
+            Verificando...
           </>
         ) : (
           <>
-            <LogIn aria-hidden="true" size={20} />
-            Entrar a la plataforma
+            Iniciar Sesión
+            <ArrowRight size={18} />
           </>
         )}
       </button>

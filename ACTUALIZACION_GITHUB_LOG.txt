@@ -1,7 +1,0 @@
-LINOEM DEVELOPMENT - ACTUALIZADOR GITHUB
-Fecha: 2026-07-11T12:46:12.735664
-Proyecto: C:\xampp\htdocs\PUNTO-DE-VENTA-CELULARES-LOGIN-CORREGIDO
-Repositorio: https://github.com/emannnuel55-pixel/PUNTO-DE-VENTA-CELULARES.git
-
-
-[ERROR FINAL] La copia está incompleta. Faltan: package-lock.json, Dockerfile
