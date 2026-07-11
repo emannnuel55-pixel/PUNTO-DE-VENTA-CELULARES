@@ -1,3 +1,4 @@
+import fs from "node:fs";
 import { spawn } from "node:child_process";
 
 function run(command, args) {
@@ -38,7 +39,13 @@ async function start() {
   }
 
   console.log("Iniciando Next.js...");
-  await run("npx", ["--no-install", "next", "start", "-H", "0.0.0.0", "-p", port]);
+  if (fs.existsSync(".next/standalone/server.js")) {
+    process.env.HOSTNAME = "0.0.0.0";
+    process.env.PORT = port;
+    await run("node", [".next/standalone/server.js"]);
+  } else {
+    await run("npx", ["--no-install", "next", "start", "-H", "0.0.0.0", "-p", port]);
+  }
 }
 
 start().catch(console.error);
