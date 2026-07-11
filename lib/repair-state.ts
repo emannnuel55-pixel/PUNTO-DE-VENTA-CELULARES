@@ -24,26 +24,26 @@ export const repairStatusLabels: Record<RepairStatus, string> = {
 };
 
 export const allowedTransitions: Record<RepairStatus, RepairStatus[]> = {
-  RECEIVED: [RepairStatus.PENDING_DIAGNOSIS, RepairStatus.CANCELLED],
-  PENDING_DIAGNOSIS: [RepairStatus.DIAGNOSING, RepairStatus.CANCELLED],
-  DIAGNOSING: [RepairStatus.WAITING_ESTIMATE, RepairStatus.NOT_VIABLE, RepairStatus.CANCELLED],
-  WAITING_ESTIMATE: [RepairStatus.ESTIMATE_SENT, RepairStatus.CANCELLED],
-  ESTIMATE_SENT: [RepairStatus.WAITING_CUSTOMER_APPROVAL, RepairStatus.CANCELLED],
-  WAITING_CUSTOMER_APPROVAL: [RepairStatus.AUTHORIZED, RepairStatus.NOT_AUTHORIZED, RepairStatus.CANCELLED],
-  AUTHORIZED: [RepairStatus.WAITING_PART, RepairStatus.PART_AVAILABLE, RepairStatus.REPAIRING],
-  NOT_AUTHORIZED: [RepairStatus.READY_FOR_DELIVERY, RepairStatus.CANCELLED],
-  WAITING_PART: [RepairStatus.PART_AVAILABLE, RepairStatus.CANCELLED],
-  PART_AVAILABLE: [RepairStatus.REPAIRING, RepairStatus.CANCELLED],
-  REPAIRING: [RepairStatus.TESTING, RepairStatus.NOT_VIABLE],
-  TESTING: [RepairStatus.COMPLETED, RepairStatus.REPAIRING, RepairStatus.NOT_VIABLE],
+  RECEIVED: [RepairStatus.PENDING_DIAGNOSIS, RepairStatus.CANCELLED, RepairStatus.READY_FOR_DELIVERY, RepairStatus.COMPLETED],
+  PENDING_DIAGNOSIS: [RepairStatus.DIAGNOSING, RepairStatus.CANCELLED, RepairStatus.READY_FOR_DELIVERY, RepairStatus.COMPLETED],
+  DIAGNOSING: [RepairStatus.WAITING_ESTIMATE, RepairStatus.NOT_VIABLE, RepairStatus.CANCELLED, RepairStatus.READY_FOR_DELIVERY, RepairStatus.COMPLETED],
+  WAITING_ESTIMATE: [RepairStatus.ESTIMATE_SENT, RepairStatus.CANCELLED, RepairStatus.READY_FOR_DELIVERY, RepairStatus.COMPLETED],
+  ESTIMATE_SENT: [RepairStatus.WAITING_CUSTOMER_APPROVAL, RepairStatus.CANCELLED, RepairStatus.READY_FOR_DELIVERY, RepairStatus.COMPLETED],
+  WAITING_CUSTOMER_APPROVAL: [RepairStatus.AUTHORIZED, RepairStatus.NOT_AUTHORIZED, RepairStatus.CANCELLED, RepairStatus.READY_FOR_DELIVERY, RepairStatus.COMPLETED],
+  AUTHORIZED: [RepairStatus.WAITING_PART, RepairStatus.PART_AVAILABLE, RepairStatus.REPAIRING, RepairStatus.READY_FOR_DELIVERY, RepairStatus.COMPLETED],
+  NOT_AUTHORIZED: [RepairStatus.READY_FOR_DELIVERY, RepairStatus.CANCELLED, RepairStatus.COMPLETED],
+  WAITING_PART: [RepairStatus.PART_AVAILABLE, RepairStatus.CANCELLED, RepairStatus.READY_FOR_DELIVERY, RepairStatus.COMPLETED],
+  PART_AVAILABLE: [RepairStatus.REPAIRING, RepairStatus.CANCELLED, RepairStatus.READY_FOR_DELIVERY, RepairStatus.COMPLETED],
+  REPAIRING: [RepairStatus.TESTING, RepairStatus.NOT_VIABLE, RepairStatus.READY_FOR_DELIVERY, RepairStatus.COMPLETED],
+  TESTING: [RepairStatus.COMPLETED, RepairStatus.REPAIRING, RepairStatus.NOT_VIABLE, RepairStatus.READY_FOR_DELIVERY],
   COMPLETED: [RepairStatus.PAYMENT_PENDING, RepairStatus.READY_FOR_DELIVERY],
-  NOT_VIABLE: [RepairStatus.READY_FOR_DELIVERY, RepairStatus.CANCELLED],
+  NOT_VIABLE: [RepairStatus.READY_FOR_DELIVERY, RepairStatus.CANCELLED, RepairStatus.COMPLETED],
   PAYMENT_PENDING: [RepairStatus.READY_FOR_DELIVERY],
   READY_FOR_DELIVERY: [RepairStatus.DELIVERED, RepairStatus.WARRANTY],
   DELIVERED: [RepairStatus.WARRANTY],
-  WARRANTY: [RepairStatus.DIAGNOSING, RepairStatus.REPAIRING, RepairStatus.TESTING, RepairStatus.READY_FOR_DELIVERY],
+  WARRANTY: [RepairStatus.DIAGNOSING, RepairStatus.REPAIRING, RepairStatus.TESTING, RepairStatus.READY_FOR_DELIVERY, RepairStatus.COMPLETED],
   CANCELLED: [],
-  ABANDONED: [RepairStatus.READY_FOR_DELIVERY]
+  ABANDONED: [RepairStatus.READY_FOR_DELIVERY, RepairStatus.COMPLETED]
 };
 
 export function canTransition(from: RepairStatus, to: RepairStatus) {

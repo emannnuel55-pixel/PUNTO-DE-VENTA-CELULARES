@@ -13,7 +13,7 @@ export async function createProduct(formData: FormData) {
   if (!user.branchId) throw new Error("El usuario no tiene sucursal.");
   const data = productSchema.parse(Object.fromEntries(formData));
   const product = await db.$transaction(async (tx: Prisma.TransactionClient) => {
-    const created = await tx.product.create({ data: { branchId: user.branchId!, sku: data.sku, name: data.name, category: data.category, brand: data.brand || null, cost: data.cost, price: data.price, stock: data.stock, minimumStock: data.minimumStock } });
+    const created = await tx.product.create({ data: { branchId: user.branchId!, sku: data.sku, name: data.name, category: data.category, brand: data.brand || null, cost: data.cost, price: data.price, stock: data.stock, minimumStock: data.minimumStock, imageUrl: data.imageUrl || null } });
     await tx.inventoryMovement.create({ data: { productId: created.id, type: InventoryMovementType.INITIAL, quantity: data.stock, previousStock: 0, newStock: data.stock, reference: "ALTA-INICIAL" } });
     return created;
   });

@@ -676,3 +676,143 @@ tr:last-child td { border-bottom:0; }
   .login-help-box { grid-template-columns: auto 1fr; }
   .login-help-box a { grid-column: 2; }
 }
+
+/* ===== ULTRA MEJORAS ESTÉTICAS LINOEM PREMIUM ===== */
+body {
+  background-color: #030712;
+  color: #f3f4f6;
+}
+
+.panel-shell {
+  background-color: #030712;
+}
+
+.sidebar {
+  background: linear-gradient(180deg, #060814 0%, #0b132b 100%) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-user {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nav-link {
+  transition: all 0.2s ease;
+}
+.nav-link:hover, .nav-link.active {
+  background: linear-gradient(135deg, rgba(0, 82, 255, 0.15) 0%, rgba(0, 210, 255, 0.1) 100%) !important;
+  color: #3b82f6 !important;
+  box-shadow: inset 0 0 10px rgba(0, 132, 255, 0.05);
+}
+
+.panel-topbar {
+  background: rgba(6, 8, 20, 0.8) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+  color: #fff !important;
+}
+
+.page-header h2 {
+  color: #fff !important;
+}
+
+.card {
+  background: rgba(30, 41, 59, 0.3) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25) !important;
+  color: #f8fafc;
+}
+.card h3 {
+  color: #fff !important;
+}
+
+.btn-primary, .btn.btn-primary {
+  background: linear-gradient(135deg, #0052ff 0%, #00d2ff 100%) !important;
+  border: none !important;
+  color: #fff !important;
+  box-shadow: 0 4px 15px rgba(0, 82, 255, 0.3) !important;
+  transition: all 0.3s ease !important;
+}
+.btn-primary:hover, .btn.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 82, 255, 0.45) !important;
+}
+
+.btn-secondary, .btn.btn-secondary {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #f8fafc !important;
+  transition: all 0.2s ease !important;
+}
+.btn-secondary:hover, .btn.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.stat-card {
+  background: rgba(30, 41, 59, 0.3) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+  border-radius: 20px !important;
+}
+.stat-card strong {
+  color: #fff !important;
+}
+.stat-icon {
+  background: rgba(59, 130, 246, 0.15) !important;
+  color: #60a5fa !important;
+}
+
+.field label {
+  color: #cbd5e1 !important;
+}
+.field input, .field textarea, .field select {
+  background: rgba(15, 23, 42, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #f8fafc !important;
+  border-radius: 12px !important;
+  transition: all 0.2s ease !important;
+}
+.field input:focus, .field textarea:focus, .field select:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15) !important;
+}
+
+table {
+  background: rgba(15, 23, 42, 0.3) !important;
+}
+th {
+  background: rgba(15, 23, 42, 0.6) !important;
+  color: #94a3b8 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+td {
+  color: #e2e8f0 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+tr:hover td {
+  background: rgba(255, 255, 255, 0.02) !important;
+}
+
+.timeline-item {
+  border-left-color: rgba(255, 255, 255, 0.1) !important;
+}
+.timeline-item:before {
+  background: #3b82f6 !important;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15) !important;
+}
+
+.chat-message {
+  background: rgba(59, 130, 246, 0.15) !important;
+  color: #f8fafc !important;
+}
+.chat-message.customer {
+  background: rgba(16, 185, 129, 0.15) !important;
+}
+.chat-message.system {
+  background: rgba(255, 255, 255, 0.05) !important;
+}

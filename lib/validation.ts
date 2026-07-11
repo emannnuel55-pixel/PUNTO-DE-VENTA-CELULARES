@@ -22,7 +22,8 @@ export const productSchema = z.object({
   cost: z.coerce.number().min(0),
   price: z.coerce.number().min(0),
   stock: z.coerce.number().int().min(0).max(100000),
-  minimumStock: z.coerce.number().int().min(0).max(100000)
+  minimumStock: z.coerce.number().int().min(0).max(100000),
+  imageUrl: z.string().optional()
 });
 
 export const repairSchema = z.object({
@@ -38,5 +39,6 @@ export const repairSchema = z.object({
   accessories: z.string().trim().max(1000).optional(),
   initialEstimate: z.coerce.number().min(0),
   deposit: z.coerce.number().min(0),
-  promisedAt: z.string().optional()
+  promisedAt: z.string().optional(),
+  photosJson: z.string().optional()
 });

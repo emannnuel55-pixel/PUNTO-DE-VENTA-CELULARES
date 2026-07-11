@@ -19,6 +19,19 @@ export async function createRepair(formData: FormData) {
   if (!user.branchId) throw new Error("El usuario no tiene sucursal.");
   const data = repairSchema.parse(Object.fromEntries(formData));
   const credential = await createAccessCredential();
+  
+  const parsedPhotos: string[] = [];
+  if (data.photosJson) {
+    try {
+      const urls = JSON.parse(data.photosJson);
+      if (Array.isArray(urls)) {
+        parsedPhotos.push(...urls.filter((u) => typeof u === "string"));
+      }
+    } catch (e) {
+      console.error("Error parsing photosJson:", e);
+    }
+  }
+
   const order = await db.$transaction(async (tx: Prisma.TransactionClient) => {
     const device = await tx.device.create({ data: { customerId: data.customerId, brand: data.brand, model: data.model, color: data.color || null, serialNumber: data.serialNumber || null, imei: data.imei || null } });
     return tx.repairOrder.create({
@@ -27,7 +40,10 @@ export async function createRepair(formData: FormData) {
         receivedById: user.id, technicianId: data.technicianId || null, issue: data.issue, physicalCondition: data.physicalCondition || null,
         accessories: data.accessories || null, initialEstimate: data.initialEstimate, deposit: data.deposit, total: data.initialEstimate,
         promisedAt: data.promisedAt ? new Date(data.promisedAt) : null, accessCodeHash: credential.hash, accessCodeLookup: credential.lookup, accessCodeLast4: credential.last4,
-        updates: { create: { userId: user.id, newStatus: RepairStatus.RECEIVED, sequence: 1, comment: "Equipo recibido y orden creada." } }
+        updates: { create: { userId: user.id, newStatus: RepairStatus.RECEIVED, sequence: 1, comment: "Equipo recibido y orden creada." } },
+        photos: {
+          create: parsedPhotos.map((url) => ({ url }))
+        }
       }
     });
   });

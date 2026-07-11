@@ -196,12 +196,23 @@ model RepairOrder {
   estimates          Estimate[]
   messages           Message[]
   clientSessions     ClientSession[]
+  photos             RepairPhoto[]
   createdAt          DateTime        @default(now())
   updatedAt          DateTime        @updatedAt
 
   @@index([customerId, status])
   @@index([technicianId, status])
   @@index([branchId, createdAt])
+}
+
+model RepairPhoto {
+  id            String      @id @default(cuid())
+  repairOrderId String
+  repairOrder   RepairOrder @relation(fields: [repairOrderId], references: [id], onDelete: Cascade)
+  url           String
+  createdAt     DateTime    @default(now())
+
+  @@index([repairOrderId])
 }
 
 model RepairUpdate {
