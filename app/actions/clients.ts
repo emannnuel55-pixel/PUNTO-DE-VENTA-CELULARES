@@ -21,3 +21,13 @@ export async function updateCustomer(customerId: string, formData: FormData) {
   await recordAudit({ actorUserId: user.id, action: "CUSTOMER_UPDATE", entityType: "Customer", entityId: customerId });
   revalidatePath("/panel/clientes");
 }
+
+export async function deleteCustomer(customerId: string) {
+  const user = await requireUser(customerWriteRoles);
+  await db.customer.update({
+    where: { id: customerId },
+    data: { active: false }
+  });
+  await recordAudit({ actorUserId: user.id, action: "CUSTOMER_DELETE", entityType: "Customer", entityId: customerId });
+  revalidatePath("/panel/clientes");
+}

@@ -32,8 +32,8 @@ export default async function LoginPage({
       <div className="premium-orb premium-orb-1" />
       <div className="premium-orb premium-orb-2" />
 
-      <Link href="/" className="premium-back-link">
-        <ArrowLeft size={16} /> Volver
+      <Link href="/cliente" className="premium-back-link">
+        <ArrowLeft size={16} /> Ir a página de clientes
       </Link>
 
       <section className="premium-glass-card">

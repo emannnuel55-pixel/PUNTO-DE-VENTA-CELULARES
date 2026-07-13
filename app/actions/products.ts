@@ -37,3 +37,46 @@ export async function adjustStock(productId: string, formData: FormData) {
   await recordAudit({ actorUserId: user.id, action: "STOCK_ADJUST", entityType: "Product", entityId: productId, metadata: { quantity, newStock: result.stock } });
   revalidatePath("/panel/productos");
 }
+
+export async function updateProduct(productId: string, formData: FormData) {
+  const user = await requireUser(inventoryRoles);
+  const name = String(formData.get("name") || "").trim();
+  const category = String(formData.get("category") || "").trim();
+  const brand = String(formData.get("brand") || "").trim();
+  const cost = Number(formData.get("cost") || 0);
+  const price = Number(formData.get("price") || 0);
+  const minimumStock = Number(formData.get("minimumStock") || 0);
+  const imageUrl = String(formData.get("imageUrl") || "").trim();
+  
+  if (!name || !category || cost < 0 || price < 0 || minimumStock < 0) {
+    throw new Error("Datos del producto inválidos.");
+  }
+  
+  await db.product.update({
+    where: { id: productId },
+    data: {
+      name,
+      category,
+      brand: brand || null,
+      cost,
+      price,
+      minimumStock,
+      imageUrl: imageUrl || null
+    }
+  });
+  
+  await recordAudit({ actorUserId: user.id, action: "PRODUCT_UPDATE", entityType: "Product", entityId: productId });
+  revalidatePath("/panel/productos");
+}
+
+export async function deleteProduct(productId: string) {
+  const user = await requireUser(inventoryRoles);
+  
+  await db.product.update({
+    where: { id: productId },
+    data: { active: false }
+  });
+  
+  await recordAudit({ actorUserId: user.id, action: "PRODUCT_DELETE", entityType: "Product", entityId: productId });
+  revalidatePath("/panel/productos");
+}

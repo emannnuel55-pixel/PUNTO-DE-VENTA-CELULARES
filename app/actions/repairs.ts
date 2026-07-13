@@ -74,3 +74,69 @@ export async function regenerateClientAccess(orderId: string) {
   cookieStore.set("pvc_issued_code", token, { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "strict", maxAge: 300, path: "/panel/reparaciones" });
   revalidatePath(`/panel/reparaciones/${orderId}`);
 }
+
+export async function updateRepair(orderId: string, formData: FormData) {
+  const user = await requireUser(repairWriteRoles);
+  
+  const issue = String(formData.get("issue") || "").trim();
+  const physicalCondition = String(formData.get("physicalCondition") || "").trim();
+  const accessories = String(formData.get("accessories") || "").trim();
+  const diagnosis = String(formData.get("diagnosis") || "").trim();
+  
+  const initialEstimate = Number(formData.get("initialEstimate") || 0);
+  const deposit = Number(formData.get("deposit") || 0);
+  const promisedAtStr = String(formData.get("promisedAt") || "");
+  const promisedAt = promisedAtStr ? new Date(promisedAtStr) : null;
+  
+  const brand = String(formData.get("brand") || "").trim();
+  const model = String(formData.get("model") || "").trim();
+  const color = String(formData.get("color") || "").trim();
+  const serialNumber = String(formData.get("serialNumber") || "").trim();
+  const imei = String(formData.get("imei") || "").trim();
+
+  if (!issue) throw new Error("La descripción del problema es requerida.");
+  if (!brand || !model) throw new Error("Marca y modelo del dispositivo son requeridos.");
+
+  const order = await db.repairOrder.findUniqueOrThrow({ where: { id: orderId } });
+
+  await db.$transaction(async (tx) => {
+    await tx.repairOrder.update({
+      where: { id: orderId },
+      data: {
+        issue,
+        physicalCondition: physicalCondition || null,
+        accessories: accessories || null,
+        diagnosis: diagnosis || null,
+        initialEstimate,
+        deposit,
+        promisedAt
+      }
+    });
+
+    await tx.device.update({
+      where: { id: order.deviceId },
+      data: {
+        brand,
+        model,
+        color: color || null,
+        serialNumber: serialNumber || null,
+        imei: imei || null
+      }
+    });
+  });
+
+  await recordAudit({ actorUserId: user.id, action: "REPAIR_UPDATE", entityType: "RepairOrder", entityId: orderId });
+  revalidatePath(`/panel/reparaciones/${orderId}`);
+  revalidatePath("/panel/reparaciones");
+}
+
+export async function deleteRepair(orderId: string) {
+  const user = await requireUser(repairWriteRoles);
+  
+  await db.repairOrder.delete({
+    where: { id: orderId }
+  });
+  
+  await recordAudit({ actorUserId: user.id, action: "REPAIR_DELETE", entityType: "RepairOrder", entityId: orderId });
+  revalidatePath("/panel/reparaciones");
+}
