@@ -71,7 +71,7 @@ export default async function HomePage() {
             products.map(p => (
               <article key={p.id} className="catalog-item">
                 <div className="catalog-item-image">
-                  {p.imageUrl ? (
+                  {p.imageUrl && (p.imageUrl.startsWith("http://") || p.imageUrl.startsWith("https://") || p.imageUrl.startsWith("/")) ? (
                      <img src={p.imageUrl} alt={p.name} />
                   ) : (
                      <div className="catalog-no-image">Sin Foto</div>
