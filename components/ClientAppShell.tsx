@@ -63,7 +63,7 @@ export function ClientAppShell({ products }: { products: Product[] }) {
             >
               Contacto
             </button>
-            <Link href="/login" className="nav-btn-admin">Acceso Empleados</Link>
+            <Link href="https://punto-de-venta-celulares-production.up.railway.app/login" className="nav-btn-admin">Acceso Empleados</Link>
           </nav>
         </div>
       </header>
@@ -192,7 +192,7 @@ export function ClientAppShell({ products }: { products: Product[] }) {
                 <p>¿Tienes dudas sobre una cotización o servicio? Escríbenos o llámanos directamente.</p>
                 <div className="support-actions">
                   <a href="tel:+52" className="support-link-btn">Llamar Ahora</a>
-                  <Link href="/login" className="support-link-btn outline">Acceso Personal</Link>
+                  <Link href="https://punto-de-venta-celulares-production.up.railway.app/login" className="support-link-btn outline">Acceso Personal</Link>
                 </div>
               </div>
             </div>
