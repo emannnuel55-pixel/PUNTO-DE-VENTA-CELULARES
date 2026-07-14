@@ -28,6 +28,7 @@ export async function GET() {
 
   await checkDir("cwd_public_uploads", path.join(process.cwd(), "public", "uploads"));
   await checkDir("cwd_standalone_public_uploads", path.join(process.cwd(), ".next", "standalone", "public", "uploads"));
+  await checkDir("app_public_uploads", path.join("/app", "public", "uploads"));
   await checkDir("tmp_uploads", path.join("/tmp", "uploads"));
   
   // Try to find the parent directory files
