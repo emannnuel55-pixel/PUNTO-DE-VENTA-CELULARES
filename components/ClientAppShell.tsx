@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import { AppLogo } from "./AppLogo";
-import { Store, Search, HelpCircle, ArrowRight, ShieldCheck, MapPin, Phone, MessageSquare, Wrench, X, Cpu, Smartphone, Shield, Check, Eye } from "lucide-react";
+import { Store, Search, HelpCircle, ArrowRight, ShieldCheck, MapPin, Phone, MessageSquare, Wrench, X, Cpu, Smartphone, Shield, Check, Eye, Boxes } from "lucide-react";
 import Link from "next/link";
 
 interface Product {
@@ -25,6 +25,15 @@ export function ClientAppShell({ products }: { products: Product[] }) {
   // Parallax 3D effect references
   const cardRef = useRef<HTMLDivElement>(null);
   const [tiltStyle, setTiltStyle] = useState<string>("");
+
+  // Helper to format uploads URLs with the admin panel production domain
+  const formatImageUrl = (url: string) => {
+    if (!url) return "";
+    if (url.startsWith("/uploads/")) {
+      return `https://punto-de-venta-celulares-production.up.railway.app${url}`;
+    }
+    return url;
+  };
 
   // Helper to parse JSON specifications and image list
   const parseProduct = (p: Product) => {
@@ -177,7 +186,7 @@ export function ClientAppShell({ products }: { products: Product[] }) {
                     >
                       <div className="product-image-container">
                         {hasValidImage ? (
-                          <img src={displayImage} alt={p.name} />
+                          <img src={formatImageUrl(displayImage)} alt={p.name} />
                         ) : (
                           <div className="fallback-image">
                             <Store size={32} />
@@ -296,7 +305,7 @@ export function ClientAppShell({ products }: { products: Product[] }) {
                     style={{ transform: tiltStyle }}
                   >
                     {hasImages ? (
-                      <img src={currentImg} alt={selectedProduct.name} className="modal-main-img" />
+                      <img src={formatImageUrl(currentImg)} alt={selectedProduct.name} className="modal-main-img" />
                     ) : (
                       <div className="fallback-image large">
                         <Store size={48} />
@@ -314,7 +323,7 @@ export function ClientAppShell({ products }: { products: Product[] }) {
                           className={`thumb-btn ${activeImageIdx === idx ? "active" : ""}`}
                           onClick={() => setActiveImageIdx(idx)}
                         >
-                          <img src={img} alt="thumbnail" />
+                          <img src={formatImageUrl(img)} alt="thumbnail" />
                         </button>
                       ))}
                     </div>
