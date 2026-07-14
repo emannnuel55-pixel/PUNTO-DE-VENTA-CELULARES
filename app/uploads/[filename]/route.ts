@@ -4,9 +4,9 @@ import path from "node:path";
 
 export async function GET(
   request: Request,
-  { params }: { params: { filename: string } }
+  { params }: { params: Promise<{ filename: string }> }
 ) {
-  const { filename } = params;
+  const { filename } = await params;
 
   // Paths where uploads might be written on the container disk
   const pathsToTry = [
