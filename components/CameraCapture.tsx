@@ -6,13 +6,18 @@ import { Camera, Trash2, Loader2 } from "lucide-react";
 export function CameraCapture({ 
   multiple = true, 
   name = "photosJson", 
-  label = "Subir fotografías / Captura de cámara" 
+  label = "Subir fotografías / Captura de cámara",
+  defaultValue
 }: { 
   multiple?: boolean; 
   name?: string; 
   label?: string; 
+  defaultValue?: string | string[];
 }) {
-  const [images, setImages] = useState<string[]>([]);
+  const initialImages = defaultValue 
+    ? (Array.isArray(defaultValue) ? defaultValue : [defaultValue].filter(Boolean)) 
+    : [];
+  const [images, setImages] = useState<string[]>(initialImages);
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
