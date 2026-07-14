@@ -32,7 +32,9 @@ export async function GET(
       return new Response(fileBuffer, {
         headers: {
           "Content-Type": contentType,
-          "Cache-Control": "public, max-age=31536000, immutable"
+          "Cache-Control": "public, max-age=31536000, immutable",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, HEAD, OPTIONS"
         }
       });
     } catch (e) {
@@ -40,6 +42,22 @@ export async function GET(
     }
   }
 
-  return new Response("Archivo no encontrado", { status: 404 });
+  return new Response("Archivo no encontrado", {
+    status: 404,
+    headers: {
+      "Access-Control-Allow-Origin": "*"
+    }
+  });
 }
+
+export async function OPTIONS() {
+  return new Response(null, {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, HEAD, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type"
+    }
+  });
+}
+
 export const dynamic = "force-dynamic";
