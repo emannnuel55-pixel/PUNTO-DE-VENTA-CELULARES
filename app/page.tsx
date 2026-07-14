@@ -15,6 +15,14 @@ export default async function HomePage() {
 
   return (
     <main className="store-shell">
+      {/* Fondo Interactivo Animado */}
+      <div className="interactive-bg">
+        <div className="glowing-blob blob-cyan"></div>
+        <div className="glowing-blob blob-blue"></div>
+        <div className="glowing-blob blob-purple"></div>
+        <div className="grid-overlay"></div>
+      </div>
+
       {/* Navbar Minimalista */}
       <nav className="store-nav">
         <div className="nav-container">

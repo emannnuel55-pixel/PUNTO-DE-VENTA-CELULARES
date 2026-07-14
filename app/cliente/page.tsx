@@ -15,6 +15,13 @@ export default async function ClientPage() {
   if (order.status === "DELIVERED") {
     return (
       <main className="client-shell">
+        {/* Fondo Interactivo Animado */}
+        <div className="interactive-bg">
+          <div className="glowing-blob blob-cyan"></div>
+          <div className="glowing-blob blob-blue"></div>
+          <div className="glowing-blob blob-purple"></div>
+          <div className="grid-overlay"></div>
+        </div>
         <div className="client-container">
           <header className="client-header">
             <AppLogo />
@@ -41,6 +48,13 @@ export default async function ClientPage() {
 
   return (
     <main className="client-shell">
+      {/* Fondo Interactivo Animado */}
+      <div className="interactive-bg">
+        <div className="glowing-blob blob-cyan"></div>
+        <div className="glowing-blob blob-blue"></div>
+        <div className="glowing-blob blob-purple"></div>
+        <div className="grid-overlay"></div>
+      </div>
       <ClientRealtime />
       <div className="client-container">
         <header className="client-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
