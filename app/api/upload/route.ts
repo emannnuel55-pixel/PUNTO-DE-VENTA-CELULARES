@@ -31,7 +31,16 @@ export async function POST(request: Request) {
       await fs.mkdir(standaloneDir, { recursive: true });
       await fs.writeFile(path.join(standaloneDir, filename), buffer);
     } catch (e) {
-      // Ignorar si no existe la carpeta standalone (como en entorno local de desarrollo)
+      // Ignorar si no existe la carpeta standalone
+    }
+
+    // Carpeta temporal externa garantizada
+    const tmpDir = path.join("/tmp", "uploads");
+    try {
+      await fs.mkdir(tmpDir, { recursive: true });
+      await fs.writeFile(path.join(tmpDir, filename), buffer);
+    } catch (e) {
+      // Ignorar si hay error de permisos en /tmp
     }
 
     const fileUrl = `/uploads/${filename}`;
