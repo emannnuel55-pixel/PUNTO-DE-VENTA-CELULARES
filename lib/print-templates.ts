@@ -204,8 +204,8 @@ export function printTicket(sale: PrintSale) {
   win.document.close();
 }
 
-// 2. RECIBO FORMAL TIPO TELMEX (CARTA / PDF)
-export function printTelmexReceipt(sale: PrintSale, type: "client" | "owner") {
+// 2. RECIBO FORMAL CARTA / PDF (MARCA DE AGUA)
+export function printFormalReceipt(sale: PrintSale, type: "client" | "owner") {
   const win = window.open("", "_blank");
   if (!win) return alert("Por favor habilita las ventanas emergentes para imprimir.");
 
@@ -238,7 +238,7 @@ export function printTelmexReceipt(sale: PrintSale, type: "client" | "owner") {
   win.document.write(`
     <html>
       <head>
-        <title>ReciboTelmex_${sale.folio}</title>
+        <title>Recibo_${sale.folio}</title>
         <style>
           @page {
             size: letter;

@@ -2,7 +2,7 @@
 
 import { useMemo, useState, useEffect } from "react";
 import { Minus, Plus, ShoppingCart, Trash2, Printer, FileText, CheckCircle2, History, CreditCard, Search, Loader2 } from "lucide-react";
-import { printTicket, printTelmexReceipt } from "@/lib/print-templates";
+import { printTicket, printFormalReceipt } from "@/lib/print-templates";
 
 type Product = { id: string; sku: string; name: string; category: string; price: number; stock: number };
 type CartItem = Product & { quantity: number };
@@ -174,17 +174,17 @@ export default function PosClient({ products }: { products: Product[] }) {
                   </button>
                   <button 
                     className="btn btn-small btn-secondary" 
-                    onClick={() => printTelmexReceipt(result, "client")}
+                    onClick={() => printFormalReceipt(result, "client")}
                     style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center", gap: "6px" }}
                   >
-                    <FileText size={14} /> PDF Cliente (Telmex Style)
+                    <FileText size={14} /> Recibo PDF Cliente
                   </button>
                   <button 
                     className="btn btn-small btn-secondary" 
-                    onClick={() => printTelmexReceipt(result, "owner")}
+                    onClick={() => printFormalReceipt(result, "owner")}
                     style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center", gap: "6px" }}
                   >
-                    <FileText size={14} /> PDF Mío (Telmex Style)
+                    <FileText size={14} /> Recibo PDF Mío
                   </button>
                 </div>
               </div>
@@ -299,10 +299,10 @@ export default function PosClient({ products }: { products: Product[] }) {
                               <button className="btn btn-small btn-secondary" onClick={() => printTicket(sale)} style={{ display: "flex", gap: "4px", alignItems: "center" }}>
                                 <Printer size={12} /> Ticket
                               </button>
-                              <button className="btn btn-small btn-secondary" onClick={() => printTelmexReceipt(sale, "client")} style={{ display: "flex", gap: "4px", alignItems: "center" }}>
+                              <button className="btn btn-small btn-secondary" onClick={() => printFormalReceipt(sale, "client")} style={{ display: "flex", gap: "4px", alignItems: "center" }}>
                                 <FileText size={12} /> PDF Cliente
                               </button>
-                              <button className="btn btn-small btn-secondary" onClick={() => printTelmexReceipt(sale, "owner")} style={{ display: "flex", gap: "4px", alignItems: "center" }}>
+                              <button className="btn btn-small btn-secondary" onClick={() => printFormalReceipt(sale, "owner")} style={{ display: "flex", gap: "4px", alignItems: "center" }}>
                                 <FileText size={12} /> PDF Propietario
                               </button>
                             </div>
@@ -341,10 +341,10 @@ export default function PosClient({ products }: { products: Product[] }) {
                           <Printer size={14} /> Imprimir Ticket
                         </button>
                         <div style={{ display: "flex", gap: "8px", width: "100%" }}>
-                          <button className="btn btn-small btn-secondary" onClick={() => printTelmexReceipt(sale, "client")} style={{ flex: 1, display: "flex", justifyContent: "center", gap: "4px" }}>
+                          <button className="btn btn-small btn-secondary" onClick={() => printFormalReceipt(sale, "client")} style={{ flex: 1, display: "flex", justifyContent: "center", gap: "4px" }}>
                             <FileText size={14} /> PDF Cliente
                           </button>
-                          <button className="btn btn-small btn-secondary" onClick={() => printTelmexReceipt(sale, "owner")} style={{ flex: 1, display: "flex", justifyContent: "center", gap: "4px" }}>
+                          <button className="btn btn-small btn-secondary" onClick={() => printFormalReceipt(sale, "owner")} style={{ flex: 1, display: "flex", justifyContent: "center", gap: "4px" }}>
                             <FileText size={14} /> PDF Mío
                           </button>
                         </div>
