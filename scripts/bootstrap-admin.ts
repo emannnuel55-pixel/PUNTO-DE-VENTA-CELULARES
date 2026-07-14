@@ -70,14 +70,49 @@ try {
   if (createStaff) {
     const staff = [
       {
-        name: "Técnico Principal",
+        name: "Propietario Demo",
+        email: "propietario@linoem.mx",
+        role: Role.OWNER,
+      },
+      {
+        name: "Administrador Demo",
+        email: "admin@linoem.mx",
+        role: Role.ADMIN,
+      },
+      {
+        name: "Gerente Demo",
+        email: "gerente@linoem.mx",
+        role: Role.MANAGER,
+      },
+      {
+        name: "Recepcionista Demo",
+        email: "recepcion@linoem.mx",
+        role: Role.RECEPTION,
+      },
+      {
+        name: "Técnico Demo",
         email: "tecnico@linoem.mx",
         role: Role.TECHNICIAN,
       },
       {
-        name: "Ventas Mostrador",
+        name: "Ventas Demo",
         email: "ventas@linoem.mx",
         role: Role.SALES,
+      },
+      {
+        name: "Almacenista Demo",
+        email: "almacen@linoem.mx",
+        role: Role.WAREHOUSE,
+      },
+      {
+        name: "Finanzas Demo",
+        email: "finanzas@linoem.mx",
+        role: Role.FINANCE,
+      },
+      {
+        name: "Auditor Demo",
+        email: "auditor@linoem.mx",
+        role: Role.AUDITOR,
       },
     ];
 
@@ -100,7 +135,7 @@ try {
           branchId: branch.id,
         },
       });
-      console.log(`Usuario de personal creado o actualizado: ${user.email}`);
+      console.log(`Usuario de personal creado o actualizado: ${user.email} con rol ${user.role}`);
     }
   }
 
