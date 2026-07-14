@@ -2410,6 +2410,63 @@ tr:hover td {
   }
 }
 
+/* ===== NOTIFICACIONES TOAST FLOTANTES ===== */
+.app-toast {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  max-width: 360px;
+  animation: slideInToast 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideInToast {
+  from {
+    transform: translateY(-20px) scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.toast-error {
+  background: rgba(239, 68, 68, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.toast-success {
+  background: rgba(16, 185, 129, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.toast-close {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  margin-left: auto;
+  transition: color 0.2s ease;
+}
+
+.toast-close:hover {
+  color: #fff;
+}
+
+
 
 
 
