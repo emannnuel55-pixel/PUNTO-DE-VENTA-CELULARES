@@ -10,5 +10,8 @@ export default async function HomePage() {
     orderBy: { createdAt: "desc" }
   });
 
-  return <ClientAppShell products={products} />;
+  const settingsList = await db.systemSetting.findMany();
+  const settings = Object.fromEntries(settingsList.map((s) => [s.key, s.value]));
+
+  return <ClientAppShell products={products} settings={settings} />;
 }
