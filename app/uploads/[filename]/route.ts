@@ -10,6 +10,7 @@ export async function GET(
 
   // Paths where uploads might be written on the container disk
   const pathsToTry = [
+    path.join("/app", "public", "uploads", filename),
     path.join(process.cwd(), "public", "uploads", filename),
     path.join(process.cwd(), ".next", "standalone", "public", "uploads", filename),
     path.join("/tmp", "uploads", filename)

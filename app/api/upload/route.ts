@@ -34,6 +34,15 @@ export async function POST(request: Request) {
       // Ignorar si no existe la carpeta standalone
     }
 
+    // Carpeta raíz absoluta de Railway /app/public/uploads
+    const appPublicDir = path.join("/app", "public", "uploads");
+    try {
+      await fs.mkdir(appPublicDir, { recursive: true });
+      await fs.writeFile(path.join(appPublicDir, filename), buffer);
+    } catch (e) {
+      // Ignorar si no existe la carpeta raíz
+    }
+
     // Carpeta temporal externa garantizada
     const tmpDir = path.join("/tmp", "uploads");
     try {
