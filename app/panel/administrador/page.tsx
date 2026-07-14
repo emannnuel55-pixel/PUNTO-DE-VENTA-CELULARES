@@ -111,7 +111,7 @@ export default async function AdministratorDashboardPage() {
             <div><h3>Reparaciones recientes</h3><p>Últimos equipos con actividad.</p></div>
             <Link href="/panel/reparaciones" className="text-link">Ver todas</Link>
           </div>
-          <div className="table-wrap">
+          <div className="table-wrap desktop-only">
             <table>
               <thead><tr><th>Folio</th><th>Cliente</th><th>Equipo</th><th>Estado</th><th>Técnico</th></tr></thead>
               <tbody>
@@ -126,6 +126,21 @@ export default async function AdministratorDashboardPage() {
                 ))}
               </tbody>
             </table>
+          </div>
+
+          <div className="mobile-only mobile-list-container">
+            {latestRepairs.map((repair) => (
+              <Link href={`/panel/reparaciones/${repair.id}`} key={repair.id} className="mobile-list-card">
+                <div className="mobile-list-card-header">
+                  <strong>{repair.publicFolio}</strong>
+                  <span className="badge">{repairStatusLabels[repair.status]}</span>
+                </div>
+                <div className="mobile-list-card-body">
+                  <p className="device-info">{repair.device.brand} {repair.device.model}</p>
+                  <p className="customer-info">{repair.customer.firstName} {repair.customer.lastName}</p>
+                </div>
+              </Link>
+            ))}
           </div>
         </article>
 
