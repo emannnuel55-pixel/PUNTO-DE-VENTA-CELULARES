@@ -15,7 +15,7 @@ export default function PosClient({ products }: { products: Product[] }) {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [paymentMethod, setPaymentMethod] = useState("CASH");
   const [busy, setBusy] = useState(false);
-  const [idempotencyKey, setIdempotencyKey] = useState(() => crypto.randomUUID());
+  const [idempotencyKey, setIdempotencyKey] = useState("");
   
   // Checkout success state (contains full sale object)
   const [result, setResult] = useState<any | null>(null);
@@ -23,6 +23,11 @@ export default function PosClient({ products }: { products: Product[] }) {
   // Sales history state
   const [salesHistory, setSalesHistory] = useState<any[]>([]);
   const [loadingHistory, setLoadingHistory] = useState(false);
+
+  // Inicializar clave de idempotencia en el cliente para evitar problemas en SSR
+  useEffect(() => {
+    setIdempotencyKey(self.crypto?.randomUUID?.() || Math.random().toString(36).substring(2));
+  }, []);
 
   const filtered = useMemo(() => {
     return products.filter((p) =>
@@ -88,7 +93,7 @@ export default function PosClient({ products }: { products: Product[] }) {
       
       setResult(data);
       setCart([]);
-      setIdempotencyKey(crypto.randomUUID());
+      setIdempotencyKey(self.crypto?.randomUUID?.() || Math.random().toString(36).substring(2));
     } catch (error) {
       alert(error instanceof Error ? error.message : "Error de venta");
     } finally {
