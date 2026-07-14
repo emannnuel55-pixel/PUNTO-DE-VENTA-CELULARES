@@ -7,6 +7,16 @@ import { printTicket, printFormalReceipt } from "@/lib/print-templates";
 type Product = { id: string; sku: string; name: string; category: string; price: number; stock: number };
 type CartItem = Product & { quantity: number };
 
+const formatPaymentMethod = (method: string) => {
+  switch (method) {
+    case "CASH": return "Efectivo";
+    case "TRANSFER": return "Transferencia";
+    case "CARD_TERMINAL": return "Terminal Tarjeta";
+    case "DIGITAL": return "Pago Digital";
+    default: return method;
+  }
+};
+
 export default function PosClient({ products }: { products: Product[] }) {
   const [activeTab, setActiveTab] = useState<"pos" | "history">("pos");
   
