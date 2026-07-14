@@ -23,7 +23,13 @@ export const productSchema = z.object({
   price: z.coerce.number().min(0),
   stock: z.coerce.number().int().min(0).max(100000),
   minimumStock: z.coerce.number().int().min(0).max(100000),
-  imageUrl: z.string().optional()
+  imageUrl: z.string().optional(),
+  desc: z.string().optional(),
+  ram: z.string().optional(),
+  rom: z.string().optional(),
+  cpu: z.string().optional(),
+  os: z.string().optional(),
+  cameras: z.string().optional()
 });
 
 export const repairSchema = z.object({

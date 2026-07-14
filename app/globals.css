@@ -2099,5 +2099,317 @@ tr:hover td {
   color: #94a3b8 !important;
 }
 
+/* =====================================================================
+   DETALLE DE PRODUCTO INTERACTIVO Y VISTA 3D EN TIENDA
+   ===================================================================== */
+
+/* Overlay del Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  animation: fadeInOverlay 0.25s ease-out;
+}
+
+/* Ficha del Modal (iOS Dialog Style) */
+.modal-sheet {
+  background: rgba(18, 18, 20, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  width: 100%;
+  max-width: 900px;
+  border-radius: 32px;
+  padding: 36px;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7);
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUpSheet 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #a1a1a6;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.modal-close-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  transform: rotate(90deg);
+}
+
+.modal-layout {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 40px;
+  align-items: start;
+}
+
+/* Columna de Visualizador de Imagen 3D */
+.modal-viewer-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.modal-image-wrapper-3d {
+  width: 100%;
+  aspect-ratio: 4/3;
+  background: #080808;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  transform-style: preserve-3d;
+}
+
+.modal-main-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform: translateZ(30px);
+  pointer-events: none;
+}
+
+.viewer-hint {
+  font-size: 0.78rem;
+  color: #86868b;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Galería de miniaturas */
+.modal-thumbnails {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.thumb-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  background: #080808;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.2s ease;
+}
+
+.thumb-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumb-btn.active {
+  border-color: #00f2fe;
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
+}
+
+/* Hover overlay en catálogo */
+.app-product-card {
+  position: relative;
+  cursor: pointer;
+}
+
+.hover-overlay-eye {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  color: #00f2fe;
+}
+
+.app-product-card:hover .hover-overlay-eye {
+  opacity: 1;
+}
+
+.hover-overlay-eye span {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Columna de Detalles y Ficha Técnica */
+.modal-info-column {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.modal-eyebrow {
+  color: #ff3b30;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+
+.modal-info-column h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 10px;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.modal-price {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #00f2fe;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.modal-description {
+  color: #a1a1a6;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0 0 28px;
+}
+
+/* Ficha Técnica */
+.specs-container {
+  margin-bottom: 30px;
+}
+
+.specs-container h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #fff;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 8px;
+  margin-bottom: 14px;
+}
+
+.specs-table {
+  display: grid;
+  gap: 12px;
+}
+
+.spec-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.spec-row svg {
+  color: #86868b;
+}
+
+.spec-row span {
+  color: #a1a1a6;
+  font-size: 0.85rem;
+}
+
+.spec-row strong {
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Botón de WhatsApp */
+.modal-buy-section {
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+.btn-whatsapp-buy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #25d366 0%, #128c7e 100%) !important;
+  color: #fff !important;
+  border: none !important;
+  width: 100%;
+  padding: 16px !important;
+  border-radius: 16px !important;
+  font-weight: 800 !important;
+  font-size: 1.05rem !important;
+  text-decoration: none !important;
+  box-shadow: 0 10px 25px rgba(37, 211, 102, 0.25) !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  cursor: pointer;
+}
+
+.btn-whatsapp-buy:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 15px 30px rgba(37, 211, 102, 0.4) !important;
+  filter: brightness(1.05);
+}
+
+/* Adaptación responsiva del Modal */
+@media (max-width: 768px) {
+  .modal-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .modal-sheet {
+    padding: 24px;
+    border-radius: 24px;
+    max-height: 85vh;
+  }
+  
+  .modal-info-column h2 {
+    font-size: 1.6rem;
+  }
+  
+  .modal-price {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+  }
+  
+  .viewer-hint {
+    display: none;
+  }
+}
+
+
 
 
