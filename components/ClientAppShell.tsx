@@ -29,8 +29,9 @@ export function ClientAppShell({ products }: { products: Product[] }) {
   // Helper to format uploads URLs with the admin panel production domain
   const formatImageUrl = (url: string) => {
     if (!url) return "";
-    if (url.startsWith("/uploads/")) {
-      return `https://punto-de-venta-celulares-production.up.railway.app${url}`;
+    if (url.startsWith("/api/media/") || url.startsWith("/uploads/")) {
+      const cleanPath = url.replace("/uploads/", "/api/media/");
+      return `https://punto-de-venta-celulares-production.up.railway.app${cleanPath}`;
     }
     return url;
   };

@@ -14,9 +14,9 @@ export function CameraCapture({
   label?: string; 
   defaultValue?: string | string[];
 }) {
-  const initialImages = defaultValue 
+  const initialImages = (defaultValue 
     ? (Array.isArray(defaultValue) ? defaultValue : [defaultValue].filter(Boolean)) 
-    : [];
+    : []).map(url => url.startsWith("/uploads/") ? url.replace("/uploads/", "/api/media/") : url);
   const [images, setImages] = useState<string[]>(initialImages);
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);

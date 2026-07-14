@@ -43,7 +43,7 @@ export async function POST(request: Request) {
       // Ignorar si hay error de permisos en /tmp
     }
 
-    const fileUrl = `/uploads/${filename}`;
+    const fileUrl = `/api/media/${filename}`;
     return NextResponse.json({ url: fileUrl });
   } catch (error) {
     console.error("File upload error:", error);
