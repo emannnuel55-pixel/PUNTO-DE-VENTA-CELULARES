@@ -66,12 +66,57 @@ export function printTicket(sale: PrintSale) {
           body {
             font-family: 'Courier New', Courier, monospace;
             width: 80mm;
-            margin: 0;
+            margin: 0 auto;
             padding: 10px;
+            padding-top: 60px;
             font-size: 12px;
             color: #000;
             background: #fff;
             position: relative;
+          }
+          .print-actions-bar {
+            background: #1e293b;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+          }
+          .action-btn {
+            padding: 6px 12px;
+            font-size: 11px;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: opacity 0.2s;
+          }
+          .action-btn:hover {
+            opacity: 0.9;
+          }
+          .print-btn {
+            background: #10b981;
+            color: white;
+          }
+          .close-btn {
+            background: #ef4444;
+            color: white;
+          }
+          @media print {
+            .no-print {
+              display: none !important;
+            }
+            body {
+              padding-top: 0 !important;
+            }
           }
           /* Marca de agua transparente */
           .watermark {
@@ -140,6 +185,10 @@ export function printTicket(sale: PrintSale) {
         </style>
       </head>
       <body>
+        <div class="no-print print-actions-bar">
+          <button onclick="window.print()" class="action-btn print-btn">🖨️ Imprimir / PDF</button>
+          <button onclick="window.close()" class="action-btn close-btn">❌ Cerrar</button>
+        </div>
         <div class="watermark"></div>
         <div class="content-wrap">
           <div class="header">
@@ -192,12 +241,6 @@ export function printTicket(sale: PrintSale) {
             <div style="margin-top: 8px; font-size: 8px; color: #555;">VALIDO CON MARCA DE AGUA LINOEM</div>
           </div>
         </div>
-        <script>
-          window.onload = () => {
-            window.print();
-            setTimeout(() => window.close(), 500);
-          };
-        </script>
       </body>
     </html>
   `);
@@ -250,9 +293,55 @@ export function printFormalReceipt(sale: PrintSale, type: "client" | "owner") {
             background: #fff;
             margin: 0;
             padding: 0;
+            padding-top: 75px;
             font-size: 12px;
             line-height: 1.4;
             position: relative;
+          }
+          .print-actions-bar {
+            background: #0054a6;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            box-shadow: 0 4px 10px rgba(0,84,166,0.25);
+          }
+          .action-btn {
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: opacity 0.2s;
+            font-family: 'Arial', sans-serif;
+          }
+          .action-btn:hover {
+            opacity: 0.9;
+          }
+          .print-btn {
+            background: #10b981;
+            color: white;
+          }
+          .close-btn {
+            background: #ef4444;
+            color: white;
+          }
+          @media print {
+            .no-print {
+              display: none !important;
+            }
+            body {
+              padding-top: 0 !important;
+            }
           }
           /* Marca de agua de LINOEM */
           .watermark {
@@ -394,6 +483,10 @@ export function printFormalReceipt(sale: PrintSale, type: "client" | "owner") {
         </style>
       </head>
       <body>
+        <div class="no-print print-actions-bar">
+          <button onclick="window.print()" class="action-btn print-btn">🖨️ Imprimir o Guardar como PDF</button>
+          <button onclick="window.close()" class="action-btn close-btn">❌ Cerrar Vista</button>
+        </div>
         <div class="watermark"></div>
         <div class="page-content">
           <div class="top-bar">
@@ -530,12 +623,6 @@ export function printFormalReceipt(sale: PrintSale, type: "client" | "owner") {
             LINOEM DEVELOPMENT - LINOEM S.A. DE C.V. - Estado de cuenta comercial emitido de forma digital. Válido únicamente con la marca de agua transparente del logotipo oficial de LINOEM estampada en el fondo del documento. Todos los derechos reservados 2026.
           </div>
         </div>
-        <script>
-          window.onload = () => {
-            window.print();
-            setTimeout(() => window.close(), 500);
-          };
-        </script>
       </body>
     </html>
   `);
