@@ -2,8 +2,9 @@
 
 import { useState, useRef } from "react";
 import { AppLogo } from "./AppLogo";
-import { Store, Search, HelpCircle, ArrowRight, ShieldCheck, MapPin, Phone, MessageSquare, Wrench, X, Cpu, Smartphone, Shield, Check, Eye } from "lucide-react";
+import { Store, Search, HelpCircle, ArrowRight, ShieldCheck, MapPin, Phone, MessageSquare, Wrench, X, Cpu, Smartphone, Shield, Check, Eye, Boxes, Mail, Facebook, Instagram, Youtube } from "lucide-react";
 import Link from "next/link";
+import { useEffect } from "react";
 
 interface Product {
   id: string;
@@ -16,8 +17,43 @@ interface Product {
   category: string | null;
 }
 
-export function ClientAppShell({ products }: { products: Product[] }) {
+const TikTokIcon = ({ size = 20, className = "" }: { size?: number; className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+  </svg>
+);
+
+export function ClientAppShell({ products, settings }: { products: Product[]; settings?: Record<string, string> }) {
   const [activeTab, setActiveTab] = useState<"tienda" | "rastrear" | "contacto">("tienda");
+
+  const businessName = settings?.business_name || "PUNTO DE VENTA CELULARES";
+  const companyName = settings?.company_name || "LINOEM DEVELOPMENT";
+  const phone = settings?.phone || "";
+  const whatsapp = settings?.whatsapp || "";
+  const address = settings?.address || "";
+  const hours = settings?.hours || "";
+  const email = settings?.email || "";
+  const googleMapsUrl = settings?.google_maps_url || "";
+  const googleMapsEmbed = settings?.google_maps_embed || "";
+  const facebook = settings?.facebook || "";
+  const instagram = settings?.instagram || "";
+  const tiktok = settings?.tiktok || "";
+  const youtube = settings?.youtube || "";
+
+  useEffect(() => {
+    if (businessName) {
+      document.title = `${businessName} | ${companyName}`;
+    }
+  }, [businessName, companyName]);
+
+  const getEmbedSrc = (embedInput: string) => {
+    if (!embedInput) return "";
+    if (embedInput.includes("src=\"")) {
+      const match = embedInput.match(/src="([^"]+)"/);
+      return match ? match[1] : "";
+    }
+    return embedInput;
+  };
   const [categoryFilter, setCategoryFilter] = useState<string>("Todos");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [activeImageIdx, setActiveImageIdx] = useState<number>(0);
@@ -25,6 +61,16 @@ export function ClientAppShell({ products }: { products: Product[] }) {
   // Parallax 3D effect references
   const cardRef = useRef<HTMLDivElement>(null);
   const [tiltStyle, setTiltStyle] = useState<string>("");
+
+  // Helper to format uploads URLs with the admin panel production domain
+  const formatImageUrl = (url: string) => {
+    if (!url) return "";
+    if (url.startsWith("/api/media/") || url.startsWith("/uploads/")) {
+      const cleanPath = url.replace("/uploads/", "/api/media/");
+      return `https://punto-de-venta-celulares-production.up.railway.app${cleanPath}`;
+    }
+    return url;
+  };
 
   // Helper to parse JSON specifications and image list
   const parseProduct = (p: Product) => {
@@ -177,7 +223,7 @@ export function ClientAppShell({ products }: { products: Product[] }) {
                     >
                       <div className="product-image-container">
                         {hasValidImage ? (
-                          <img src={displayImage} alt={p.name} />
+                          <img src={formatImageUrl(displayImage)} alt={p.name} />
                         ) : (
                           <div className="fallback-image">
                             <Store size={32} />
@@ -247,23 +293,85 @@ export function ClientAppShell({ products }: { products: Product[] }) {
             <div className="support-cards-grid">
               <div className="ios-info-card">
                 <ShieldCheck size={36} className="card-icon cyan" />
-                <h3>Garantía LINOEM</h3>
-                <p>Nuestras reparaciones usan refacciones de la más alta calidad y cuentan con garantía extendida por escrito.</p>
+                <h3>Garantía de Servicio</h3>
+                <p>Nuestras reparaciones usan refacciones de la más alta calidad y cuentan con garantía extendida para tu total tranquilidad.</p>
+                <div style={{ marginTop: "16px", padding: "10px", background: "rgba(255,255,255,0.03)", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.05)" }}>
+                  <strong>Horario de atención:</strong><br />
+                  <span style={{ color: "#a1a1a6", fontSize: "0.9rem" }}>{hours || "Lunes a Sábado - Horarios Flexibles"}</span>
+                </div>
               </div>
 
               <div className="ios-info-card">
                 <MapPin size={36} className="card-icon blue" />
                 <h3>Nuestra Sucursal</h3>
-                <p>Visítanos para una valoración inmediata de tu dispositivo en nuestra sucursal céntrica.</p>
+                <p>{address || "Visítanos en nuestra sucursal de atención a clientes."}</p>
+                
+                {getEmbedSrc(googleMapsEmbed) && (
+                  <div className="maps-preview-container" style={{ marginTop: "12px", borderRadius: "10px", overflow: "hidden", border: "1px solid rgba(255,255,255,0.08)", height: "140px" }}>
+                    <iframe 
+                      src={getEmbedSrc(googleMapsEmbed)} 
+                      width="100%" 
+                      height="100%" 
+                      style={{ border: 0 }} 
+                      allowFullScreen={false} 
+                      loading="lazy"
+                    ></iframe>
+                  </div>
+                )}
+
+                {googleMapsUrl && (
+                  <div style={{ marginTop: "12px" }}>
+                    <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="support-link-btn" style={{ width: "100%", justifyContent: "center" }}>
+                      🗺️ Abrir Google Maps
+                    </a>
+                  </div>
+                )}
               </div>
 
               <div className="ios-info-card">
                 <Phone size={36} className="card-icon purple" />
-                <h3>Contacto Rápido</h3>
-                <p>¿Tienes dudas sobre una cotización o servicio? Escríbenos o llámanos directamente.</p>
-                <div className="support-actions">
-                  <a href="tel:+52" className="support-link-btn">Llamar Ahora</a>
-                  <Link href="https://punto-de-venta-celulares-production.up.railway.app/login" className="support-link-btn outline">Acceso Personal</Link>
+                <h3>Contacto & Redes</h3>
+                <p>Comunícate por nuestros canales oficiales o síguenos en redes sociales:</p>
+                
+                <div className="support-actions" style={{ display: "flex", flexDirection: "column", gap: "8px", marginTop: "12px" }}>
+                  {phone && (
+                    <a href={`tel:${phone}`} className="support-link-btn" style={{ width: "100%", justifyContent: "center", gap: "6px" }}>
+                      <Phone size={14} /> Llamar ({phone})
+                    </a>
+                  )}
+                  {whatsapp && (
+                    <a href={`https://wa.me/${whatsapp}`} target="_blank" rel="noopener noreferrer" className="support-link-btn" style={{ width: "100%", justifyContent: "center", gap: "6px", background: "#25D366", color: "#fff", borderColor: "#25D366" }}>
+                      <MessageSquare size={14} /> WhatsApp
+                    </a>
+                  )}
+                  {email && (
+                    <a href={`mailto:${email}`} className="support-link-btn outline" style={{ width: "100%", justifyContent: "center", gap: "6px" }}>
+                      <Mail size={14} /> Correo Electrónico
+                    </a>
+                  )}
+                </div>
+
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px", marginTop: "12px", borderTop: "1px solid rgba(255,255,255,0.05)", paddingTop: "12px" }}>
+                  {facebook && (
+                    <a href={facebook} target="_blank" rel="noopener noreferrer" className="support-link-btn outline" style={{ display: "flex", gap: "6px", alignItems: "center", justifyContent: "center", fontSize: "0.8rem", padding: "6px 8px" }}>
+                      <Facebook size={12} /> Facebook
+                    </a>
+                  )}
+                  {instagram && (
+                    <a href={instagram} target="_blank" rel="noopener noreferrer" className="support-link-btn outline" style={{ display: "flex", gap: "6px", alignItems: "center", justifyContent: "center", fontSize: "0.8rem", padding: "6px 8px" }}>
+                      <Instagram size={12} /> Instagram
+                    </a>
+                  )}
+                  {tiktok && (
+                    <a href={tiktok} target="_blank" rel="noopener noreferrer" className="support-link-btn outline" style={{ display: "flex", gap: "6px", alignItems: "center", justifyContent: "center", fontSize: "0.8rem", padding: "6px 8px" }}>
+                      <TikTokIcon size={12} /> TikTok
+                    </a>
+                  )}
+                  {youtube && (
+                    <a href={youtube} target="_blank" rel="noopener noreferrer" className="support-link-btn outline" style={{ display: "flex", gap: "6px", alignItems: "center", justifyContent: "center", fontSize: "0.8rem", padding: "6px 8px" }}>
+                      <Youtube size={12} /> YouTube
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
@@ -296,7 +404,7 @@ export function ClientAppShell({ products }: { products: Product[] }) {
                     style={{ transform: tiltStyle }}
                   >
                     {hasImages ? (
-                      <img src={currentImg} alt={selectedProduct.name} className="modal-main-img" />
+                      <img src={formatImageUrl(currentImg)} alt={selectedProduct.name} className="modal-main-img" />
                     ) : (
                       <div className="fallback-image large">
                         <Store size={48} />
@@ -314,7 +422,7 @@ export function ClientAppShell({ products }: { products: Product[] }) {
                           className={`thumb-btn ${activeImageIdx === idx ? "active" : ""}`}
                           onClick={() => setActiveImageIdx(idx)}
                         >
-                          <img src={img} alt="thumbnail" />
+                          <img src={formatImageUrl(img)} alt="thumbnail" />
                         </button>
                       ))}
                     </div>
@@ -348,7 +456,7 @@ export function ClientAppShell({ products }: { products: Product[] }) {
 
                   <div className="modal-buy-section">
                     <a 
-                      href={`https://wa.me/526564101273?text=Hola,%20me%20interesa%20el%20producto:%20${encodeURIComponent(selectedProduct.name)}`}
+                      href={`https://wa.me/${whatsapp || "526564101273"}?text=Hola,%20me%20interesa%20el%20producto:%20${encodeURIComponent(selectedProduct.name)}`}
                       target="_blank"
                       className="btn-whatsapp-buy"
                     >

@@ -31,10 +31,28 @@ export async function POST(request: Request) {
       await fs.mkdir(standaloneDir, { recursive: true });
       await fs.writeFile(path.join(standaloneDir, filename), buffer);
     } catch (e) {
-      // Ignorar si no existe la carpeta standalone (como en entorno local de desarrollo)
+      // Ignorar si no existe la carpeta standalone
     }
 
-    const fileUrl = `/uploads/${filename}`;
+    // Carpeta raíz absoluta de Railway /app/public/uploads
+    const appPublicDir = path.join("/app", "public", "uploads");
+    try {
+      await fs.mkdir(appPublicDir, { recursive: true });
+      await fs.writeFile(path.join(appPublicDir, filename), buffer);
+    } catch (e) {
+      // Ignorar si no existe la carpeta raíz
+    }
+
+    // Carpeta temporal externa garantizada
+    const tmpDir = path.join("/tmp", "uploads");
+    try {
+      await fs.mkdir(tmpDir, { recursive: true });
+      await fs.writeFile(path.join(tmpDir, filename), buffer);
+    } catch (e) {
+      // Ignorar si hay error de permisos en /tmp
+    }
+
+    const fileUrl = `/api/media/${filename}`;
     return NextResponse.json({ url: fileUrl });
   } catch (error) {
     console.error("File upload error:", error);
