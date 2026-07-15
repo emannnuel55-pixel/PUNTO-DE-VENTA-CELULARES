@@ -1,7 +1,4 @@
 import { NextResponse } from "next/server";
-import fs from "node:fs/promises";
-import path from "node:path";
-import crypto from "node:crypto";
 
 export async function POST(request: Request) {
   try {
@@ -12,53 +9,21 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "No se proporcionó ningún archivo." }, { status: 400 });
     }
 
+    // Convert file to Base64 to bypass Railway ephemeral storage issues
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
-
-    // Definir nombre único y extensión
-    const originalExt = path.extname(file.name) || ".png";
-    const filename = `${crypto.randomUUID()}${originalExt}`;
     
-    // Carpeta de subidas local (desarrollo)
-    const uploadDir = path.join(process.cwd(), "public", "uploads");
-    await fs.mkdir(uploadDir, { recursive: true });
-    const filePath = path.join(uploadDir, filename);
-    await fs.writeFile(filePath, buffer);
+    // Reduce quality/size if possible but for now just convert direct
+    const mimeType = file.type || "image/png";
+    const base64String = `data:${mimeType};base64,${buffer.toString("base64")}`;
 
-    // Carpeta de subidas para el servidor Next.js Standalone en producción (Railway)
-    const standaloneDir = path.join(process.cwd(), ".next", "standalone", "public", "uploads");
-    try {
-      await fs.mkdir(standaloneDir, { recursive: true });
-      await fs.writeFile(path.join(standaloneDir, filename), buffer);
-    } catch (e) {
-      // Ignorar si no existe la carpeta standalone
-    }
-
-    // Carpeta raíz absoluta de Railway /app/public/uploads
-    const appPublicDir = path.join("/app", "public", "uploads");
-    try {
-      await fs.mkdir(appPublicDir, { recursive: true });
-      await fs.writeFile(path.join(appPublicDir, filename), buffer);
-    } catch (e) {
-      // Ignorar si no existe la carpeta raíz
-    }
-
-    // Carpeta temporal externa garantizada
-    const tmpDir = path.join("/tmp", "uploads");
-    try {
-      await fs.mkdir(tmpDir, { recursive: true });
-      await fs.writeFile(path.join(tmpDir, filename), buffer);
-    } catch (e) {
-      // Ignorar si hay error de permisos en /tmp
-    }
-
-    const fileUrl = `/api/media/${filename}`;
-    return NextResponse.json({ url: fileUrl });
+    return NextResponse.json({ url: base64String });
   } catch (error) {
     console.error("File upload error:", error);
     return NextResponse.json({ error: "No fue posible subir la fotografía." }, { status: 500 });
   }
 }
+
 export const config = {
   api: {
     bodyParser: false,
