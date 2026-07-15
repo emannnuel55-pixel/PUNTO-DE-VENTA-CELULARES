@@ -78,42 +78,9 @@ export async function POST(request: Request) {
       });
     });
 
-    const fullSale = await db.sale.findUniqueOrThrow({
-      where: { id: sale.id },
-      include: {
-        items: true,
-        user: { select: { name: true } },
-        payments: true,
-        branch: { select: { name: true } }
-      }
-    });
-
-    return NextResponse.json(fullSale);
+    await recordAudit({ actorUserId: user.id, action: "SALE_CREATE", entityType: "Sale", entityId: sale.id, metadata: { folio: sale.folio, total: totals.total } });
+    return NextResponse.json({ folio: sale.folio, total: totals.total });
   } catch (error) {
     return NextResponse.json({ error: error instanceof Error ? error.message : "No fue posible completar la venta." }, { status: 400 });
   }
 }
-
-export async function GET(request: Request) {
-  try {
-    const user = await requireUser(salesRoles);
-    if (!user.branchId) return NextResponse.json({ error: "Usuario sin sucursal." }, { status: 400 });
-
-    const sales = await db.sale.findMany({
-      where: { branchId: user.branchId },
-      orderBy: { createdAt: "desc" },
-      include: {
-        items: true,
-        user: { select: { name: true } },
-        payments: true,
-        branch: { select: { name: true } }
-      },
-      take: 50
-    });
-
-    return NextResponse.json(sales);
-  } catch (error) {
-    return NextResponse.json({ error: error instanceof Error ? error.message : "Error al obtener las ventas." }, { status: 400 });
-  }
-}
-

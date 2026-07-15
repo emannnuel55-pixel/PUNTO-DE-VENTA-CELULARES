@@ -118,7 +118,7 @@ export function Sidebar({ user }: { user: { name: string; email: string; role: R
         <div className="sidebar-bottom" style={{ marginTop: "auto", borderTop: "1px solid rgba(255, 255, 255, 0.05)", paddingTop: "16px" }}>
           <Link 
             className="nav-link" 
-            href="https://adequate-kindness-production.up.railway.app" 
+            href="/" 
             target="_blank"
             style={{ display: "flex", alignItems: "center", gap: "12px", padding: "10px 16px", color: "#94a3b8", textDecoration: "none" }}
           >
@@ -211,7 +211,7 @@ export function Sidebar({ user }: { user: { name: string; email: string; role: R
               })}
               
               <Link 
-                href="https://adequate-kindness-production.up.railway.app" 
+                href="/" 
                 target="_blank" 
                 className="sheet-link-item"
                 onClick={() => setShowMoreMenu(false)}

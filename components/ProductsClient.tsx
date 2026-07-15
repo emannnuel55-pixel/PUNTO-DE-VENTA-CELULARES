@@ -46,23 +46,6 @@ export function ProductsClient({ products }: { products: Product[] }) {
     return specs;
   };
 
-  // Helper to parse product images
-  const parseImages = (imageUrlStr: string | null) => {
-    let images: string[] = [];
-    if (imageUrlStr) {
-      try {
-        if (imageUrlStr.startsWith("[") && imageUrlStr.endsWith("]")) {
-          images = JSON.parse(imageUrlStr);
-        } else {
-          images = [imageUrlStr];
-        }
-      } catch (e) {
-        images = [imageUrlStr];
-      }
-    }
-    return images.map(url => url.startsWith("/uploads/") ? url.replace("/uploads/", "/api/media/") : url);
-  };
-
   // Client-side validation and programmatic submission
   const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -231,7 +214,6 @@ export function ProductsClient({ products }: { products: Product[] }) {
           <table>
             <thead>
               <tr>
-                <th>Imagen</th>
                 <th>SKU</th>
                 <th>Producto</th>
                 <th>Categoría</th>
@@ -244,19 +226,8 @@ export function ProductsClient({ products }: { products: Product[] }) {
             <tbody>
               {products.map((p) => {
                 const specs = parseDescription(p.description);
-                const images = parseImages(p.imageUrl);
-                const displayImage = images[0];
                 return (
                   <tr key={p.id}>
-                    <td>
-                      {displayImage ? (
-                        <img src={displayImage} alt={p.name} style={{ width: 44, height: 44, objectFit: "cover", borderRadius: 8, border: "1px solid rgba(255,255,255,0.08)" }} />
-                      ) : (
-                        <div style={{ width: 44, height: 44, borderRadius: 8, background: "rgba(255,255,255,0.03)", display: "grid", placeItems: "center", border: "1px solid rgba(255,255,255,0.05)" }}>
-                          <Store size={18} className="muted" />
-                        </div>
-                      )}
-                    </td>
                     <td><strong>{p.sku}</strong></td>
                     <td>
                       {p.name}
@@ -311,8 +282,6 @@ export function ProductsClient({ products }: { products: Product[] }) {
         <div className="mobile-list-container">
           {products.map((p) => {
             const specs = parseDescription(p.description);
-            const images = parseImages(p.imageUrl);
-            const displayImage = images[0];
             return (
               <div key={p.id} className="mobile-list-card" style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                 <div className="mobile-list-card-header">
@@ -321,21 +290,12 @@ export function ProductsClient({ products }: { products: Product[] }) {
                     {p.stock} unidades
                   </span>
                 </div>
-                <div className="mobile-list-card-body" style={{ display: "flex", gap: "12px", alignItems: "center" }}>
-                  {displayImage ? (
-                    <img src={displayImage} alt={p.name} style={{ width: 50, height: 50, objectFit: "cover", borderRadius: 10, flexShrink: 0, border: "1px solid rgba(255,255,255,0.08)" }} />
-                  ) : (
-                    <div style={{ width: 50, height: 50, borderRadius: 10, background: "rgba(255,255,255,0.03)", display: "grid", placeItems: "center", flexShrink: 0, border: "1px solid rgba(255,255,255,0.05)" }}>
-                      <Store size={20} className="muted" />
-                    </div>
-                  )}
-                  <div style={{ flex: 1 }}>
-                    <p className="device-info" style={{ margin: 0, fontWeight: 700 }}>{p.name}</p>
-                    <p className="customer-info" style={{ margin: "2px 0 0", fontSize: "0.85rem" }}>{p.brand || "Sin marca"} · {p.category}</p>
-                    <p className="muted" style={{ fontSize: "0.8rem", margin: "4px 0 0" }}>
-                      Costo: {formatMoney(p.cost.toString())} | Precio: {formatMoney(p.price.toString())}
-                    </p>
-                  </div>
+                <div className="mobile-list-card-body">
+                  <p className="device-info">{p.name}</p>
+                  <p className="customer-info">{p.brand || "Sin marca"} · {p.category}</p>
+                  <p className="muted" style={{ fontSize: "0.8rem", marginTop: 4 }}>
+                    Costo: {formatMoney(p.cost.toString())} | Precio: {formatMoney(p.price.toString())}
+                  </p>
                 </div>
                 <div className="inline-actions" style={{ borderTop: "1px solid rgba(255,255,255,0.05)", paddingTop: "10px", marginTop: "5px" }}>
                   <button 
