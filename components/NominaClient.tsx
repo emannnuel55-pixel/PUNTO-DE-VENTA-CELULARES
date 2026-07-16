@@ -232,7 +232,7 @@ export default function NominaClient() {
         <FileText size={20} /> Registrar Nómina — Sistema Linoem
       </h2>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "30px" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "30px" }}>
         {/* COLUMNA IZQUIERDA */}
         <div style={{ display: "flex", flexDirection: "column", gap: "25px" }}>
           
@@ -241,7 +241,7 @@ export default function NominaClient() {
             <h3 style={{ display: "flex", alignItems: "center", gap: "8px", color: "#5c3c92", fontSize: "14px", textTransform: "uppercase", marginBottom: "15px" }}>
               <User size={16} /> Empleado y Periodo
             </h3>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "15px" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "15px" }}>
               <div style={{ gridColumn: "1 / -1" }}>
                 <label style={{ display: "block", fontSize: "12px", color: "#888", marginBottom: "5px" }}>Colaborador</label>
                 <select 
@@ -277,7 +277,7 @@ export default function NominaClient() {
             <h3 style={{ display: "flex", alignItems: "center", gap: "8px", color: "#10b981", fontSize: "14px", textTransform: "uppercase", marginBottom: "15px" }}>
               <DollarSign size={16} /> Percepciones
             </h3>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "15px" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "15px" }}>
               <div>
                 <label style={{ display: "block", fontSize: "12px", color: "#888", marginBottom: "5px" }}>Salario Base (MXN)</label>
                 <input type="number" value={salarioBase} onChange={e => setSalarioBase(Number(e.target.value))} style={{ width: "100%", padding: "10px", borderRadius: "6px", border: "1px solid #ddd", background: "#f9f9f9" }} />
@@ -339,7 +339,7 @@ export default function NominaClient() {
             <h3 style={{ display: "flex", alignItems: "center", gap: "8px", color: "#ef4444", fontSize: "14px", textTransform: "uppercase", marginBottom: "15px" }}>
               <Calculator size={16} /> Deducciones (IMSS / ISR / INFONAVIT / FONACOT)
             </h3>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "15px" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "15px" }}>
               <div>
                 <label style={{ display: "block", fontSize: "12px", color: "#888", marginBottom: "5px" }}>IMSS Trabajador (MXN)</label>
                 <input type="number" value={imssTrabajador} onChange={e => setImssTrabajador(Number(e.target.value))} style={{ width: "100%", padding: "10px", borderRadius: "6px", border: "1px solid #ddd", background: "#f9f9f9" }} />
