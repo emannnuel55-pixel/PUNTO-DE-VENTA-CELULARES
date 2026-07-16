@@ -2863,3 +2863,101 @@ tr:hover td {
   background: rgba(255, 255, 255, 0.08) !important;
   border-color: rgba(255, 255, 255, 0.2) !important;
 }
+
+/* =====================================================================
+   PANEL RESPONSIVE CONSOLIDADO
+   Capa final y autoritativa para escritorio, laptop, tablet y celular.
+   ===================================================================== */
+html, body { max-width: 100%; overflow-x: clip; }
+.panel-shell { width: 100%; min-width: 0; grid-template-columns: 270px minmax(0, 1fr); }
+.panel-main, .panel-content, .panel-content > *, .card, .stat-card { min-width: 0; max-width: 100%; }
+.panel-title-short { display: none; }
+.panel-content { width: 100%; }
+.panel-content p, .panel-content span, .panel-content strong, .panel-content a { overflow-wrap: anywhere; }
+.panel-content input, .panel-content select, .panel-content textarea, .panel-content button { max-width: 100%; }
+.panel-content .page-header, .panel-content .card-title-row, .panel-content .inline-actions {
+  min-width: 0;
+  flex-wrap: wrap;
+}
+.admin-dashboard-grid, .worker-dashboard-grid {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr);
+  align-items: start;
+}
+.admin-dashboard-grid > *, .worker-dashboard-grid > *,
+.admin-dashboard-grid > :first-child, .worker-dashboard-grid > :first-child,
+.admin-dashboard-grid > :last-child, .worker-dashboard-grid > :last-child { min-width: 0; }
+
+/* Laptop y tablet horizontal */
+@media (max-width: 1180px) {
+  .panel-shell { grid-template-columns: 230px minmax(0, 1fr); }
+  .sidebar { padding-inline: 12px; }
+  .panel-content { padding: 24px 20px 54px; }
+  .admin-dashboard-grid, .worker-dashboard-grid { grid-template-columns: 1fr; }
+  .admin-stats-grid, .worker-stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* Tablet vertical y celular: navegación inferior tipo aplicación */
+@media (max-width: 820px) {
+  .panel-shell { display: block !important; width: 100%; }
+  .sidebar { display: none !important; }
+  .panel-main { width: 100%; min-height: 100dvh; padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
+  .panel-topbar {
+    position: sticky !important;
+    top: 0;
+    width: 100%;
+    min-height: 58px;
+    padding: 12px 16px;
+    z-index: 50 !important;
+  }
+  .panel-topbar h1 { font-size: clamp(.92rem, 3.6vw, 1.15rem); white-space: nowrap; }
+  .panel-content { padding: 18px 14px 28px; }
+  .panel-mobile-tab-bar {
+    display: flex !important;
+    height: calc(68px + env(safe-area-inset-bottom));
+    padding: 6px max(8px, env(safe-area-inset-left)) env(safe-area-inset-bottom) max(8px, env(safe-area-inset-right));
+  }
+  .panel-tab-btn { min-width: 0; padding: 5px 2px; }
+  .panel-tab-btn span { width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .portal-banner { padding: 22px 18px; gap: 14px; }
+  .portal-banner-icon { flex: 0 0 auto; }
+  .page-header { gap: 14px; align-items: flex-start; }
+  .page-header > div { min-width: 0; }
+  .page-header .inline-actions { width: 100%; }
+  .page-header .inline-actions .btn { flex: 1 1 180px; }
+  .admin-dashboard-grid, .worker-dashboard-grid, .grid-two, .split-card, .pos-layout { grid-template-columns: 1fr !important; }
+  .panel-content [style*="grid-template-columns"] { grid-template-columns: minmax(0, 1fr) !important; }
+  .table-wrap { width: 100%; max-width: 100%; overflow-x: auto; overscroll-behavior-inline: contain; }
+  .card-title-row { gap: 10px; }
+  .card-title-row .text-link { flex: 0 0 auto; }
+}
+
+/* Celular */
+@media (max-width: 560px) {
+  .panel-title-full { display: none; }
+  .panel-title-short { display: inline; }
+  .panel-status { font-size: .7rem; padding: 5px 8px; white-space: nowrap; }
+  .panel-content { padding: 14px 10px 24px; }
+  .portal-banner { align-items: flex-start; border-radius: 18px; }
+  .portal-banner h2 { font-size: clamp(1.35rem, 7vw, 1.8rem); }
+  .portal-banner-icon { display: none; }
+  .admin-stats-grid, .worker-stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 10px !important; }
+  .stat-card { padding: 13px 12px !important; border-radius: 16px !important; }
+  .stat-card strong { font-size: clamp(1.05rem, 5vw, 1.35rem) !important; }
+  .stat-card span { font-size: .76rem; }
+  .card { padding: 16px !important; border-radius: 17px !important; }
+  .page-header .inline-actions, .form-actions, .inline-actions { align-items: stretch; }
+  .page-header .inline-actions .btn, .form-actions .btn { width: 100%; flex-basis: 100%; }
+  .sheet-links { grid-template-columns: 1fr; }
+  .audit-feed-item { grid-template-columns: auto minmax(0, 1fr) !important; }
+  .audit-feed-item time { grid-column: 2; justify-self: start; }
+  .info-row { gap: 12px; align-items: flex-start; }
+}
+
+/* Celulares estrechos */
+@media (max-width: 380px) {
+  .panel-topbar { padding-inline: 10px; }
+  .panel-status { max-width: 116px; overflow: hidden; text-overflow: ellipsis; }
+  .admin-stats-grid, .worker-stats-grid { grid-template-columns: 1fr !important; }
+  .panel-tab-btn span { font-size: .62rem; }
+}

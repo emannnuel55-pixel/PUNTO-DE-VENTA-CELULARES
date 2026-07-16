@@ -5,5 +5,5 @@ export const dynamic = "force-dynamic";
 
 export default async function PanelLayout({ children }: { children: React.ReactNode }) {
   const user = await requireUser();
-  return <div className="panel-shell"><Sidebar user={user}/><main className="panel-main"><header className="panel-topbar"><h1>PUNTO DE VENTA CELULARES</h1><span className="badge success">Sistema operativo</span></header><div className="panel-content">{children}</div></main></div>;
+  return <div className="panel-shell"><Sidebar user={user}/><main className="panel-main"><header className="panel-topbar"><h1><span className="panel-title-full">PUNTO DE VENTA CELULARES</span><span className="panel-title-short">LINOEM POS</span></h1><span className="badge success panel-status">Sistema operativo</span></header><div className="panel-content">{children}</div></main></div>;
 }
