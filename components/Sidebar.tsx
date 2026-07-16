@@ -41,6 +41,7 @@ const items: NavigationItem[] = [
   { href: "/panel/reparaciones", label: "Reparaciones", shortLabel: "Taller", icon: Wrench, roles: [Role.OWNER, Role.ADMIN, Role.MANAGER, Role.RECEPTION, Role.TECHNICIAN] },
   { href: "/panel/productos", label: "Inventario", shortLabel: "Stock", icon: Boxes, roles: [Role.OWNER, Role.ADMIN, Role.MANAGER, Role.WAREHOUSE, Role.SALES] },
   { href: "/panel/pos", label: "Punto de venta", shortLabel: "Cobrar", icon: ShoppingCart, roles: [Role.OWNER, Role.ADMIN, Role.MANAGER, Role.RECEPTION, Role.SALES] },
+  { href: "/panel/nomina", label: "Nómina y RRHH", shortLabel: "Nómina", icon: ScrollText, roles: [Role.OWNER, Role.ADMIN, Role.MANAGER, Role.FINANCE] },
   { href: "/panel/usuarios", label: "Usuarios", shortLabel: "Usuarios", icon: UserCog, roles: [Role.OWNER, Role.ADMIN] },
   { href: "/panel/auditoria", label: "Auditoría", shortLabel: "Auditar", icon: ScrollText, roles: [Role.OWNER, Role.ADMIN, Role.AUDITOR] },
   { href: "/panel/configuracion", label: "Configuración", shortLabel: "Ajustes", icon: Settings, roles: [Role.OWNER, Role.ADMIN] },

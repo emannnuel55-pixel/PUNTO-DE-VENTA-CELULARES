@@ -190,7 +190,7 @@ export function printTicket(sale: PrintSale) {
           <button onclick="window.close()" class="action-btn close-btn">❌ Cerrar</button>
         </div>
         <div class="watermark"></div>
-        <div class="content-wrap">
+        <div class="content-wrap" contenteditable="true">
           <div class="header">
             <img src="https://punto-de-venta-celulares-production.up.railway.app/logo-linoem-transparent.png" class="logo" />
             <div class="title">CELULARES LINOEM</div>
@@ -488,7 +488,7 @@ export function printFormalReceipt(sale: PrintSale, type: "client" | "owner") {
           <button onclick="window.close()" class="action-btn close-btn">❌ Cerrar Vista</button>
         </div>
         <div class="watermark"></div>
-        <div class="page-content">
+        <div class="page-content" contenteditable="true">
           <div class="top-bar">
             <span>Estado de Cuenta Comercial Linoem</span>
             <span>${type === "client" ? "Copia Cliente" : "Copia Propietario / Oficina"}</span>
