@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Printer, Save, FileText, User, DollarSign, Calculator, Clock, CalendarCheck } from "lucide-react";
+import { Printer, Save, FileText, User, DollarSign, Calculator, Clock, CalendarCheck, Plus } from "lucide-react";
 
 export default function NominaClient() {
   const [employeeName, setEmployeeName] = useState("Administrador General HTJ — #1000 (SUPER_ADMIN)");
