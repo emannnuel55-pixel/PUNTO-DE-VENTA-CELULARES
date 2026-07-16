@@ -46,103 +46,178 @@ export default function NominaClient() {
         <head>
           <title>Recibo de Nómina - ${employeeName}</title>
           <style>
-            body { font-family: Arial, sans-serif; font-size: 11px; color: #333; margin: 0; padding: 20px; }
-            .page { width: 100%; max-width: 800px; margin: 0 auto; position: relative; }
-            table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
-            .logo { width: 150px; }
-            .title-box { background: #d00000; color: white; text-align: center; padding: 8px; font-weight: bold; border-radius: 4px; }
-            .info-label { font-weight: bold; background: #f4f4f4; width: 120px; padding: 4px; border: 1px solid #ddd; }
-            td { padding: 4px; border: 1px solid #ddd; }
-            .col-header { background: #f2f7fc; color: #d00000; font-weight: bold; text-align: center; padding: 6px; border: 1px solid #d00000; }
-            .amount { text-align: right; }
-            .grand-total { font-size: 14px; font-weight: bold; background: #d00000; color: white; }
-            .signature-box { margin-top: 50px; text-align: center; width: 300px; margin-left: auto; margin-right: auto; }
-            .signature-line { border-top: 1px solid #000; padding-top: 5px; }
-            @media print { .no-print { display: none !important; } }
+            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+            body { font-family: 'Inter', Arial, sans-serif; font-size: 11px; color: #333; margin: 0; padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .page { width: 100%; max-width: 800px; margin: 0 auto; position: relative; background: white; min-height: 100vh; }
+            
+            /* Top Header Styling */
+            .header-banner { 
+              background: linear-gradient(135deg, #0052cc 0%, #003380 100%); 
+              height: 140px; 
+              width: 100%; 
+              position: relative; 
+              border-bottom-left-radius: 50% 20px;
+              border-bottom-right-radius: 50% 20px;
+              display: flex;
+              justify-content: space-between;
+              padding: 20px 40px;
+              box-sizing: border-box;
+              color: white;
+            }
+            .header-logo-container { text-align: right; }
+            .logo { width: 180px; filter: brightness(0) invert(1); }
+            
+            .title-section { padding: 20px 40px; display: flex; justify-content: space-between; align-items: flex-start; }
+            .main-title { color: #0052cc; font-size: 32px; font-weight: 700; margin: 0 0 15px 0; letter-spacing: 1px; }
+            .company-info { font-size: 10px; color: #555; line-height: 1.5; }
+            
+            .receipt-details { text-align: right; }
+            .receipt-number { font-size: 16px; font-weight: bold; color: #333; }
+            
+            .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 0 40px; margin-bottom: 20px; }
+            .meta-item { display: flex; flex-direction: column; }
+            .meta-label { font-weight: bold; color: #333; margin-bottom: 5px; }
+            
+            /* Table Styling */
+            .table-container { padding: 0 40px; }
+            table { width: 100%; border-collapse: collapse; margin-bottom: 0; }
+            th { background: #e5e7eb; color: #333; padding: 10px; text-align: left; font-size: 11px; border-bottom: 2px solid #fff; }
+            td { padding: 10px; border-bottom: 1px solid #eee; }
+            .col-amount { text-align: right; font-weight: 600; }
+            .header-dark { background: #333; color: white; }
+            
+            /* Totals */
+            .totals-section { display: flex; justify-content: flex-end; padding: 0 40px; }
+            .totals-table { width: 300px; }
+            .totals-table td { padding: 8px 10px; }
+            .grand-total-row { background: #f3f4f6; font-size: 14px; font-weight: bold; }
+            
+            /* Footer */
+            .footer-section { padding: 40px; margin-top: 20px; }
+            .notes { font-size: 10px; color: #555; max-width: 60%; margin-bottom: 20px; }
+            .thanks-banner { background: #0052cc; color: white; padding: 10px 20px; display: inline-block; font-weight: bold; font-size: 14px; }
+            
+            .signature-box { float: right; text-align: center; width: 200px; margin-top: -60px; }
+            .signature-line { border-top: 1px solid #333; padding-top: 5px; font-weight: bold; color: #333; }
+            
+            @media print { .no-print { display: none !important; } body { -webkit-print-color-adjust: exact; } }
           </style>
         </head>
         <body>
-          <div class="no-print" style="text-align: center; margin-bottom: 20px;">
-            <button style="padding: 10px 20px; background: #10b981; color: white; border: none; cursor: pointer; font-weight: bold; border-radius: 5px;" onclick="window.print()">🖨️ Imprimir Recibo</button>
+          <div class="no-print" style="text-align: center; margin-bottom: 20px; padding-top: 20px;">
+            <button style="padding: 10px 20px; background: #0052cc; color: white; border: none; cursor: pointer; font-weight: bold; border-radius: 5px; font-size: 14px;" onclick="window.print()">🖨️ Imprimir Recibo PDF</button>
           </div>
+          
           <div class="page" contenteditable="true">
-            <table>
-              <tr>
-                <td style="width: 200px; border: none;">
-                  <img src="https://punto-de-venta-celulares-production.up.railway.app/logo-linoem-transparent.png" class="logo" />
-                </td>
-                <td style="border: none;">
-                  <div class="title-box">RECIBO DE NÓMINA</div>
-                  <div style="text-align: center; margin-top: 10px; font-weight: bold;">
-                    LINOEM DEVELOPMENT S.A. DE C.V.<br>RFC: LIN240714E23
-                  </div>
-                </td>
-              </tr>
-            </table>
-
-            <table style="margin-top: 15px;">
-              <tr><td class="info-label">Colaborador</td><td colspan="3"><strong>${employeeName}</strong></td></tr>
-              <tr>
-                <td class="info-label">Periodo</td><td>Del ${periodStart} al ${periodEnd}</td>
-                <td class="info-label">Días Trabajados</td><td>${workedDays} (Festivos: ${holidays})</td>
-              </tr>
-            </table>
-
-            <table style="margin-top: 15px;">
-              <thead>
-                <tr>
-                  <td class="col-header" colspan="2" style="width: 50%;">PERCEPCIONES</td>
-                  <td class="col-header" colspan="2" style="width: 50%;">DEDUCCIONES</td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Salario Base</td><td class="amount">${formatMoney(salarioBase)}</td>
-                  <td>IMSS Trabajador</td><td class="amount">${formatMoney(imssTrabajador)}</td>
-                </tr>
-                <tr>
-                  <td>Pago Horas Extras (${horasExtrasCant}h)</td><td class="amount">${formatMoney(pagoHrsExtras)}</td>
-                  <td>IMSS Patrón</td><td class="amount">${formatMoney(imssPatron)}</td>
-                </tr>
-                <tr>
-                  <td>Bono Asistencia</td><td class="amount">${formatMoney(bonoAsistencia)}</td>
-                  <td>ISR Retenido</td><td class="amount">${formatMoney(isrRetenido)}</td>
-                </tr>
-                <tr>
-                  <td>Bono Puntualidad</td><td class="amount">${formatMoney(bonoPuntualidad)}</td>
-                  <td>INFONAVIT</td><td class="amount">${formatMoney(infonavit)}</td>
-                </tr>
-                <tr>
-                  <td>Otros Ingresos</td><td class="amount">${formatMoney(otrosIngresos)}</td>
-                  <td>FONACOT / Otras</td><td class="amount">${formatMoney(fonacot + otrasDeducciones)}</td>
-                </tr>
-              </tbody>
-            </table>
-
-            <table>
-              <tr>
-                <td style="width: 25%; text-align: right; font-weight: bold;">Suma Percepciones:</td>
-                <td style="width: 25%;" class="amount">${formatMoney(totalPercepciones)}</td>
-                <td style="width: 25%; text-align: right; font-weight: bold;">Suma Deducciones:</td>
-                <td style="width: 25%;" class="amount">${formatMoney(totalDeducciones)}</td>
-              </tr>
-              <tr>
-                <td colspan="2" style="border: none;"></td>
-                <td class="grand-total" style="text-align: right;">NETO A PAGAR:</td>
-                <td class="grand-total amount">${formatMoney(netoPagar)}</td>
-              </tr>
-            </table>
-            
-            <div style="font-size: 11px; margin-top: 10px; font-style: italic;">
-              <strong>Notas:</strong> ${notas || "Ninguna."}
+            <!-- Header Wave Banner -->
+            <div class="header-banner">
+              <div></div>
+              <div class="header-logo-container">
+                <img src="https://punto-de-venta-celulares-production.up.railway.app/logo-linoem-transparent.png" class="logo" />
+                <div style="font-size: 10px; margin-top: 5px; letter-spacing: 1px;">INNOVACIÓN DIGITAL QUE IMPULSA TU FUTURO</div>
+              </div>
             </div>
 
-            <div style="font-size: 10px; margin-top: 20px; text-align: justify; color: #555;">
-              Recibí de la empresa LINOEM DEVELOPMENT S.A. DE C.V. la cantidad neta a que este recibo se refiere, estando conforme con las percepciones y deducciones que en él aparecen, por lo que no me reservo acción ni derecho alguno que ejercitar de ninguna naturaleza en contra de la empresa.
+            <!-- Title & Info -->
+            <div class="title-section">
+              <div>
+                <h1 class="main-title">RECIBO DE NÓMINA</h1>
+                <div class="meta-label">Colaborador:</div>
+                <div style="font-weight: bold; font-size: 14px; margin-bottom: 10px;">${employeeName}</div>
+                <div class="company-info">
+                  <strong>LINOEM DEVELOPMENT S.A. DE C.V.</strong><br>
+                  RFC: LIN240714E23<br>
+                  Días Pagados: ${workedDays} (Festivos: ${holidays})
+                </div>
+              </div>
+              <div class="receipt-details">
+                <div style="color: #666; margin-bottom: 5px;">Comprobante:</div>
+                <div class="receipt-number">#${Math.floor(100000 + Math.random() * 900000)}</div>
+              </div>
             </div>
 
-            <div class="signature-box">
-              <div class="signature-line">Firma de Conformidad del Colaborador</div>
+            <div class="meta-grid">
+              <div class="meta-item">
+                <span class="meta-label">Periodo:</span>
+                <span>${periodStart} al ${periodEnd}</span>
+              </div>
+              <div class="meta-item" style="text-align: right;">
+                <span class="meta-label">Neto a Pagar:</span>
+                <span style="font-weight: bold; color: #0052cc;">${formatMoney(netoPagar)}</span>
+              </div>
+            </div>
+
+            <!-- Table -->
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width: 5%;">#</th>
+                    <th style="width: 45%;">Concepto (Percepciones)</th>
+                    <th class="col-amount header-dark">Monto (MXN)</th>
+                    <th style="width: 5%;">#</th>
+                    <th style="width: 45%;">Concepto (Deducciones)</th>
+                    <th class="col-amount header-dark">Monto (MXN)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>01</td><td>Salario Base</td><td class="col-amount">${formatMoney(salarioBase)}</td>
+                    <td>06</td><td>IMSS Trabajador</td><td class="col-amount">${formatMoney(imssTrabajador)}</td>
+                  </tr>
+                  <tr>
+                    <td>02</td><td>Pago Horas Extras (${horasExtrasCant}h)</td><td class="col-amount">${formatMoney(pagoHrsExtras)}</td>
+                    <td>07</td><td>ISR Retenido</td><td class="col-amount">${formatMoney(isrRetenido)}</td>
+                  </tr>
+                  <tr>
+                    <td>03</td><td>Bono Asistencia</td><td class="col-amount">${formatMoney(bonoAsistencia)}</td>
+                    <td>08</td><td>INFONAVIT</td><td class="col-amount">${formatMoney(infonavit)}</td>
+                  </tr>
+                  <tr>
+                    <td>04</td><td>Bono Puntualidad</td><td class="col-amount">${formatMoney(bonoPuntualidad)}</td>
+                    <td>09</td><td>FONACOT / Otras</td><td class="col-amount">${formatMoney(fonacot + otrasDeducciones)}</td>
+                  </tr>
+                  <tr>
+                    <td>05</td><td>Otros Ingresos</td><td class="col-amount">${formatMoney(otrosIngresos)}</td>
+                    <td></td><td></td><td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Totals -->
+            <div class="totals-section">
+              <table class="totals-table">
+                <tr>
+                  <td>Suma Percepciones</td>
+                  <td class="col-amount">${formatMoney(totalPercepciones)}</td>
+                </tr>
+                <tr>
+                  <td>Suma Deducciones</td>
+                  <td class="col-amount" style="color: #ef4444;">- ${formatMoney(totalDeducciones)}</td>
+                </tr>
+                <tr class="grand-total-row">
+                  <td>NETO A PAGAR</td>
+                  <td class="col-amount">${formatMoney(netoPagar)}</td>
+                </tr>
+              </table>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer-section">
+              <div class="notes">
+                <strong>Notas / Condiciones:</strong><br>
+                ${notas || "Ninguna."}<br><br>
+                Recibí de la empresa LINOEM DEVELOPMENT S.A. DE C.V. la cantidad neta a que este recibo se refiere, estando conforme con las percepciones y deducciones que en él aparecen, por lo que no me reservo acción ni derecho alguno en contra de la empresa.
+              </div>
+              
+              <div class="thanks-banner">Gracias por su esfuerzo y dedicación</div>
+              
+              <div class="signature-box">
+                <br><br><br>
+                <div class="signature-line">Firma de Conformidad</div>
+                <div style="font-size: 10px; color: #666; margin-top: 5px;">Colaborador</div>
+              </div>
             </div>
           </div>
         </body>
