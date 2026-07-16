@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const cookieStore = await cookies();
-  const theme = cookieStore.get("pvc_theme")?.value || "dark";
+  const theme = cookieStore.get("pvc_theme")?.value || "light";
   const themeClass = theme === "light" ? "light-theme" : "";
   
   return (

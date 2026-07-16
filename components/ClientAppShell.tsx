@@ -5,12 +5,13 @@ import { AppLogo } from "./AppLogo";
 import { Store, Search, HelpCircle, ArrowRight, ShieldCheck, MapPin, Phone, MessageSquare, Wrench, X, Cpu, Smartphone, Shield, Check, Eye, Boxes, Mail, Facebook, Instagram, Youtube } from "lucide-react";
 import Link from "next/link";
 import { useEffect } from "react";
+import { ThemeToggle } from "./ThemeToggle";
 
 interface Product {
   id: string;
   name: string;
   description: string | null;
-  price: any;
+  price: unknown;
   stock: number;
   imageUrl: string | null;
   brand: string | null;
@@ -88,7 +89,7 @@ export function ClientAppShell({ products, settings }: { products: Product[]; se
         if (p.description.startsWith("{") && p.description.endsWith("}")) {
           specs = { ...specs, ...JSON.parse(p.description) };
         }
-      } catch (e) {}
+      } catch {}
     }
 
     let images: string[] = [];
@@ -99,7 +100,7 @@ export function ClientAppShell({ products, settings }: { products: Product[]; se
         } else {
           images = [p.imageUrl];
         }
-      } catch (e) {
+      } catch {
         images = [p.imageUrl];
       }
     }
@@ -145,7 +146,10 @@ export function ClientAppShell({ products, settings }: { products: Product[]; se
       {/* Header Fijo Estilo App */}
       <header className="app-header">
         <div className="header-inner">
-          <AppLogo />
+          <div className="app-brand-lockup">
+            <AppLogo />
+            <span className="app-brand-caption">Tecnología, servicio y confianza</span>
+          </div>
           
           {/* Navegación Desktop */}
           <nav className="desktop-nav">
@@ -167,8 +171,11 @@ export function ClientAppShell({ products, settings }: { products: Product[]; se
             >
               Contacto
             </button>
-            <Link href="https://punto-de-venta-celulares-production.up.railway.app/login" className="nav-btn-admin">Acceso Empleados</Link>
           </nav>
+          <div className="app-header-actions">
+            <ThemeToggle />
+            <Link href="https://punto-de-venta-celulares-production.up.railway.app/login" className="nav-btn-admin">Acceso empleados</Link>
+          </div>
         </div>
       </header>
 
@@ -178,14 +185,37 @@ export function ClientAppShell({ products, settings }: { products: Product[]; se
           <section className="tab-view fade-in">
             {/* Banner Destacado Estilo App Store */}
             <div className="promo-banner">
-              <div className="promo-text">
-                <span className="promo-tag">LINOEM Premium</span>
-                <h2>Calidad garantizada para tu dispositivo</h2>
-                <p>Encuentra los accesorios más exclusivos con stock en tiempo real.</p>
+              <div className="promo-content">
+                <div className="promo-text">
+                  <span className="promo-tag">Experiencia LINOEM</span>
+                  <h1>Tu tecnología merece un servicio excepcional.</h1>
+                  <p>Compra con confianza, consulta existencias reales y mantén el control de tu reparación desde cualquier dispositivo.</p>
+                  <div className="promo-trust-row">
+                    <span><ShieldCheck size={17} /> Servicio garantizado</span>
+                    <span><Check size={17} /> Stock actualizado</span>
+                    <span><Wrench size={17} /> Seguimiento privado</span>
+                  </div>
+                </div>
+                <div className="promo-device" aria-hidden="true">
+                  <div className="promo-device-glow" />
+                  <div className="promo-device-frame">
+                    <Smartphone size={70} strokeWidth={1.25} />
+                    <span>Servicio inteligente</span>
+                  </div>
+                  <span className="promo-float-badge promo-float-top">Garantía</span>
+                  <span className="promo-float-badge promo-float-bottom">En tiempo real</span>
+                </div>
               </div>
             </div>
 
             {/* Selector de Categorías Horizontal */}
+            <div className="catalog-heading">
+              <div>
+                <span className="section-kicker">Catálogo</span>
+                <h2>Encuentra tu próximo dispositivo</h2>
+              </div>
+              <span className="catalog-count">{filteredProducts.length} productos</span>
+            </div>
             <div className="categories-scroll">
               {categories.map((cat) => (
                 <button
@@ -295,7 +325,7 @@ export function ClientAppShell({ products, settings }: { products: Product[]; se
                 <ShieldCheck size={36} className="card-icon cyan" />
                 <h3>Garantía de Servicio</h3>
                 <p>Nuestras reparaciones usan refacciones de la más alta calidad y cuentan con garantía extendida para tu total tranquilidad.</p>
-                <div style={{ marginTop: "16px", padding: "10px", background: "rgba(255,255,255,0.03)", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.05)" }}>
+                <div className="support-schedule">
                   <strong>Horario de atención:</strong><br />
                   <span style={{ color: "#a1a1a6", fontSize: "0.9rem" }}>{hours || "Lunes a Sábado - Horarios Flexibles"}</span>
                 </div>
@@ -307,7 +337,7 @@ export function ClientAppShell({ products, settings }: { products: Product[]; se
                 <p>{address || "Visítanos en nuestra sucursal de atención a clientes."}</p>
                 
                 {getEmbedSrc(googleMapsEmbed) && (
-                  <div className="maps-preview-container" style={{ marginTop: "12px", borderRadius: "10px", overflow: "hidden", border: "1px solid rgba(255,255,255,0.08)", height: "140px" }}>
+                  <div className="maps-preview-container">
                     <iframe 
                       src={getEmbedSrc(googleMapsEmbed)} 
                       width="100%" 
@@ -351,7 +381,7 @@ export function ClientAppShell({ products, settings }: { products: Product[]; se
                   )}
                 </div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px", marginTop: "12px", borderTop: "1px solid rgba(255,255,255,0.05)", paddingTop: "12px" }}>
+                <div className="support-social-grid">
                   {facebook && (
                     <a href={facebook} target="_blank" rel="noopener noreferrer" className="support-link-btn outline" style={{ display: "flex", gap: "6px", alignItems: "center", justifyContent: "center", fontSize: "0.8rem", padding: "6px 8px" }}>
                       <Facebook size={12} /> Facebook

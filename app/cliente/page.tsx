@@ -25,7 +25,7 @@ export default async function ClientPage() {
         <div className="client-container">
           <header className="client-header">
             <AppLogo />
-            <form action="/api/customer/logout" method="post"><button className="btn btn-secondary">Cerrar</button></form>
+            <div className="client-header-actions"><ThemeToggle /><form action="/api/customer/logout" method="post"><button className="btn btn-secondary">Cerrar</button></form></div>
           </header>
           <section className="client-card delivered-card">
             <span className="eyebrow">CONSTANCIA DE ENTREGA</span>
